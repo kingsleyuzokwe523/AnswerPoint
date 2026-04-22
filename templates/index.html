@@ -1,0 +1,336 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="relative overflow-hidden bg-gradient-to-br from-indigo-900 via-purple-800 to-teal-800 text-white">
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+        <div class="text-center">
+            <div class="inline-flex items-center bg-white/10 backdrop-blur rounded-full px-4 py-2 mb-6">
+                <span class="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
+                <span class="text-sm font-medium">WAEC & NECO 2026 Ready</span>
+            </div>
+
+            <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-yellow-200 to-white bg-clip-text text-transparent">
+                {{ hero_title }}
+            </h1>
+
+            <p class="text-xl md:text-2xl mb-8 text-gray-200 max-w-3xl mx-auto">{{ hero_text }}</p>
+
+            <!-- Social Links -->
+            <div class="flex flex-wrap justify-center gap-4 mb-12">
+                <a href="{{ whatsapp_link }}" target="_blank" class="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-2xl flex items-center space-x-3 transition transform hover:scale-105 shadow-lg">
+                    <i class="fab fa-whatsapp text-2xl"></i>
+                    <span class="font-semibold">Join WhatsApp Channel</span>
+                </a>
+                <a href="{{ telegram_link }}" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-2xl flex items-center space-x-3 transition transform hover:scale-105 shadow-lg">
+                    <i class="fab fa-telegram text-2xl"></i>
+                    <span class="font-semibold">Join Telegram Channel</span>
+                </a>
+            </div>
+
+            <!-- PIN Input Card -->
+            <div class="max-w-md mx-auto">
+                <div class="bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-white/20 shadow-2xl">
+                    <div class="flex items-center justify-center mb-4">
+                        <div class="bg-indigo-500 rounded-full p-3">
+                            <i class="fas fa-key text-white text-xl"></i>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">Enter Your PIN</h3>
+                    <p class="text-gray-300 text-sm mb-6">Get instant access to verified answers</p>
+
+                    <div class="space-y-4">
+                        <input type="text" id="pinInput" maxlength="3" placeholder="Enter 3-digit PIN"
+                               class="w-full text-center text-3xl font-bold p-4 bg-white rounded-xl border-2 border-transparent focus:border-indigo-400 focus:outline-none text-gray-800">
+                        <button onclick="getAnswer()" class="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-bold py-4 rounded-xl transition transform hover:scale-105 shadow-lg">
+                            <i class="fas fa-search mr-2"></i> See Answer
+                        </button>
+                    </div>
+                    <div id="pinError" class="text-red-300 text-sm mt-3 hidden"></div>
+                    <div id="pinLoading" class="text-yellow-300 text-sm mt-3 hidden">
+                        <i class="fas fa-spinner fa-spin mr-2"></i> Loading answer...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Answer Display Section - Shows as normal part of the page -->
+<div id="answerSection" class="hidden max-w-4xl mx-auto px-4 my-8">
+    <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+        <!-- Answer Header -->
+        <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div>
+                    <i class="fas fa-check-circle text-2xl mr-2"></i>
+                    <span class="text-sm font-semibold">ANSWER FOUND</span>
+                </div>
+                <button onclick="closeAnswer()" class="text-white hover:text-gray-200">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Answer Content -->
+        <div class="p-6">
+            <div class="border-b pb-4 mb-4">
+                <h3 class="text-2xl font-bold text-indigo-600" id="answerSubject"></h3>
+                <p class="text-gray-600" id="answerExamType"></p>
+                <div class="mt-2 flex items-center space-x-4 text-sm">
+                    <span class="text-gray-500">
+                        <i class="fas fa-eye mr-1"></i> <span id="answerViews">0</span> views
+                    </span>
+                    <span class="text-green-600">
+                        <i class="fas fa-check-circle mr-1"></i> Verified Answer
+                    </span>
+                </div>
+            </div>
+
+            <div id="answerText" class="prose max-w-none mb-6 text-gray-700 leading-relaxed"></div>
+
+            <div id="answerImages" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4"></div>
+
+            <div class="mt-4 p-4 bg-gray-50 rounded-xl text-center">
+                <i class="fas fa-share-alt text-gray-400 mr-2"></i>
+                <span class="text-sm text-gray-600">Share this answer with friends who need it!</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Instructions Section -->
+<section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold text-gray-800 mb-4">How It Works</h2>
+            <p class="text-gray-600 text-lg">Simple steps to access your exam answers</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-white rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition transform hover:-translate-y-2">
+                <div class="w-20 h-20 bg-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-key text-indigo-600 text-3xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3">1. Get Your PIN</h3>
+                <p class="text-gray-600">Obtain your unique 3-digit PIN from your administrator</p>
+            </div>
+
+            <div class="bg-white rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition transform hover:-translate-y-2">
+                <div class="w-20 h-20 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-arrow-right text-purple-600 text-3xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3">2. Enter PIN</h3>
+                <p class="text-gray-600">Type your 3-digit PIN in the box above and click "See Answer"</p>
+            </div>
+
+            <div class="bg-white rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition transform hover:-translate-y-2">
+                <div class="w-20 h-20 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-check-circle text-green-600 text-3xl"></i>
+                </div>
+                <h3 class="text-xl font-bold mb-3">3. Get Answers</h3>
+                <p class="text-gray-600">View verified answers with text and images instantly</p>
+            </div>
+        </div>
+
+        <div class="mt-12 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl p-8">
+            <div class="whitespace-pre-line text-gray-700 leading-relaxed">{{ instructions }}</div>
+        </div>
+    </div>
+</section>
+
+<!-- Subjects Section -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold text-gray-800 mb-4">All Subjects Available</h2>
+            <p class="text-gray-600 text-lg">Complete list of WAEC & NECO subjects with practicals</p>
+        </div>
+
+        <!-- Search -->
+        <div class="mb-8">
+            <div class="max-w-md mx-auto">
+                <div class="relative">
+                    <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    <input type="text" id="subjectSearch" placeholder="Search subjects..."
+                           class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:border-indigo-500 focus:outline-none">
+                </div>
+            </div>
+        </div>
+
+        <!-- WAEC Subjects -->
+        <div class="mb-12">
+            <h3 class="text-2xl font-bold text-indigo-600 mb-4 flex items-center">
+                <i class="fas fa-graduation-cap mr-2"></i> WAEC Subjects
+                <span class="ml-2 text-sm bg-indigo-100 text-indigo-600 px-2 py-1 rounded-full">{{ waec_subjects|length }}</span>
+            </h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
+                {% for subject in waec_subjects %}
+                <div class="subject-item bg-gray-50 rounded-xl p-3 hover:shadow-lg transition cursor-pointer hover:bg-indigo-50" data-name="{{ subject.name|lower }}">
+                    <div class="flex items-center space-x-2">
+                        {% if subject.has_practical %}
+                        <i class="fas fa-flask text-green-500 text-xs"></i>
+                        {% else %}
+                        <i class="fas fa-book text-indigo-500 text-xs"></i>
+                        {% endif %}
+                        <span class="text-sm font-medium text-gray-700">{{ subject.name }}</span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- NECO Subjects -->
+        <div>
+            <h3 class="text-2xl font-bold text-teal-600 mb-4 flex items-center">
+                <i class="fas fa-school mr-2"></i> NECO Subjects
+                <span class="ml-2 text-sm bg-teal-100 text-teal-600 px-2 py-1 rounded-full">{{ neco_subjects|length }}</span>
+            </h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
+                {% for subject in neco_subjects %}
+                <div class="subject-item bg-gray-50 rounded-xl p-3 hover:shadow-lg transition cursor-pointer hover:bg-teal-50" data-name="{{ subject.name|lower }}">
+                    <div class="flex items-center space-x-2">
+                        {% if subject.has_practical %}
+                        <i class="fas fa-flask text-green-500 text-xs"></i>
+                        {% else %}
+                        <i class="fas fa-book text-teal-500 text-xs"></i>
+                        {% endif %}
+                        <span class="text-sm font-medium text-gray-700">{{ subject.name }}</span>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="py-16 bg-gradient-to-r from-indigo-900 to-purple-900 text-white">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+        <div class="grid md:grid-cols-3 gap-8">
+            <div>
+                <div class="text-4xl font-bold" id="statPins">-</div>
+                <div class="text-gray-300">Active PINs</div>
+            </div>
+            <div>
+                <div class="text-4xl font-bold" id="statViews">-</div>
+                <div class="text-gray-300">Total Views</div>
+            </div>
+            <div>
+                <div class="text-4xl font-bold">{{ waec_subjects|length + neco_subjects|length }}</div>
+                <div class="text-gray-300">Subjects</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="bg-gray-900 text-white py-8">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+        <p class="text-gray-400">{{ footer_text }}</p>
+    </div>
+</footer>
+
+<script>
+function getAnswer() {
+    const pinCode = document.getElementById('pinInput').value.trim();
+    const errorDiv = document.getElementById('pinError');
+    const loadingDiv = document.getElementById('pinLoading');
+    const answerSection = document.getElementById('answerSection');
+
+    errorDiv.classList.add('hidden');
+
+    if (!pinCode || pinCode.length !== 3 || !/^\d+$/.test(pinCode)) {
+        errorDiv.textContent = '❌ Please enter a valid 3-digit PIN (000-999)';
+        errorDiv.classList.remove('hidden');
+        return;
+    }
+
+    // Show loading
+    loadingDiv.classList.remove('hidden');
+    answerSection.classList.add('hidden');
+
+    fetch('/get_answer', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: 'pin_code=' + pinCode
+    })
+    .then(response => response.json())
+    .then(data => {
+        loadingDiv.classList.add('hidden');
+
+        if (data.success) {
+            // Display answer in the section below
+            document.getElementById('answerSubject').textContent = data.subject;
+            document.getElementById('answerExamType').innerHTML = '<i class="fas fa-school"></i> ' + data.exam_type;
+            document.getElementById('answerText').innerHTML = data.answer_text.replace(/\n/g, '<br>');
+            document.getElementById('answerViews').textContent = data.views;
+
+            const imagesDiv = document.getElementById('answerImages');
+            imagesDiv.innerHTML = '';
+            if (data.images && data.images.length > 0) {
+                data.images.forEach(img => {
+                    imagesDiv.innerHTML += `<img src="/static/${img}" class="rounded-xl shadow-lg" alt="Answer image">`;
+                });
+            }
+
+            // Show the answer section
+            answerSection.classList.remove('hidden');
+
+            // Scroll to answer section smoothly
+            answerSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+            errorDiv.textContent = '❌ ' + data.error;
+            errorDiv.classList.remove('hidden');
+            answerSection.classList.add('hidden');
+        }
+    })
+    .catch(error => {
+        loadingDiv.classList.add('hidden');
+        errorDiv.textContent = '❌ An error occurred. Please try again.';
+        errorDiv.classList.remove('hidden');
+    });
+}
+
+function closeAnswer() {
+    document.getElementById('answerSection').classList.add('hidden');
+    document.getElementById('pinInput').value = '';
+    document.getElementById('pinInput').focus();
+}
+
+// Subject search
+document.getElementById('subjectSearch')?.addEventListener('input', function(e) {
+    const term = e.target.value.toLowerCase();
+    document.querySelectorAll('.subject-item').forEach(item => {
+        const name = item.getAttribute('data-name');
+        if (name.includes(term)) {
+            item.style.display = 'block';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+});
+
+// Enter key submit
+document.getElementById('pinInput').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') getAnswer();
+});
+
+// Load stats
+function loadStats() {
+    fetch('/admin/get_stats')
+        .then(res => res.json())
+        .then(data => {
+            document.getElementById('statPins').textContent = data.total_pins || 0;
+            document.getElementById('statViews').textContent = data.total_views || 0;
+        })
+        .catch(() => {});
+}
+loadStats();
+
+// Clear answer section when typing new PIN
+document.getElementById('pinInput').addEventListener('input', function() {
+    document.getElementById('answerSection').classList.add('hidden');
+    document.getElementById('pinError').classList.add('hidden');
+});
+</script>
+{% endblock %}
