@@ -3,46 +3,47 @@
 {% block content %}
 <!-- Hero Section -->
 <section class="relative overflow-hidden bg-gradient-to-br from-indigo-900 via-purple-800 to-teal-800 text-white">
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+    <div class="relative max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-12 sm:py-20 lg:py-28">
         <div class="text-center">
-            <div class="inline-flex items-center bg-white/10 backdrop-blur rounded-full px-4 py-2 mb-6">
-                <span class="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
-                <span class="text-sm font-medium">WAEC & NECO 2026 Ready</span>
+            <div class="inline-flex items-center bg-white/10 backdrop-blur rounded-full px-3 sm:px-4 py-1.5 sm:py-2 mb-4 sm:mb-6">
+                <span class="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-green-400 rounded-full mr-1.5 sm:mr-2 animate-pulse"></span>
+                <span class="text-xs sm:text-sm font-medium">WAEC & NECO 2026 Ready</span>
             </div>
 
-            <h1 class="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-yellow-200 to-white bg-clip-text text-transparent">
+            <h1 class="text-3xl sm:text-5xl md:text-7xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-white via-yellow-200 to-white bg-clip-text text-transparent">
                 {{ hero_title }}
             </h1>
 
-            <p class="text-xl md:text-2xl mb-8 text-gray-200 max-w-3xl mx-auto">{{ hero_text }}</p>
+            <p class="text-base sm:text-xl md:text-2xl mb-6 sm:mb-8 text-gray-200 max-w-3xl mx-auto px-2">{{ hero_text }}</p>
 
             <!-- Social Links -->
-            <div class="flex flex-wrap justify-center gap-4 mb-12">
-                <a href="{{ whatsapp_link }}" target="_blank" class="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded-2xl flex items-center space-x-3 transition transform hover:scale-105 shadow-lg">
-                    <i class="fab fa-whatsapp text-2xl"></i>
-                    <span class="font-semibold">Join WhatsApp Channel</span>
+            <div class="flex flex-wrap justify-center gap-3 sm:gap-4 mb-8 sm:mb-12">
+                <a href="{{ whatsapp_link }}" target="_blank" class="bg-green-600 hover:bg-green-700 text-white px-4 sm:px-8 py-3 sm:py-4 rounded-2xl flex items-center space-x-2 sm:space-x-3 transition transform hover:scale-105 shadow-lg text-sm sm:text-base">
+                    <i class="fab fa-whatsapp text-xl sm:text-2xl"></i>
+                    <span class="font-semibold">Join WhatsApp</span>
                 </a>
-                <a href="{{ telegram_link }}" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-2xl flex items-center space-x-3 transition transform hover:scale-105 shadow-lg">
-                    <i class="fab fa-telegram text-2xl"></i>
-                    <span class="font-semibold">Join Telegram Channel</span>
+                <a href="{{ telegram_link }}" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white px-4 sm:px-8 py-3 sm:py-4 rounded-2xl flex items-center space-x-2 sm:space-x-3 transition transform hover:scale-105 shadow-lg text-sm sm:text-base">
+                    <i class="fab fa-telegram text-xl sm:text-2xl"></i>
+                    <span class="font-semibold">Join Telegram</span>
                 </a>
             </div>
 
             <!-- PIN Input Card -->
-            <div class="max-w-md mx-auto">
-                <div class="bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-white/20 shadow-2xl">
-                    <div class="flex items-center justify-center mb-4">
-                        <div class="bg-indigo-500 rounded-full p-3">
-                            <i class="fas fa-key text-white text-xl"></i>
+            <div class="max-w-md mx-auto px-3 sm:px-0">
+                <div class="bg-white/10 backdrop-blur-xl rounded-3xl p-5 sm:p-8 border border-white/20 shadow-2xl">
+                    <div class="flex items-center justify-center mb-3 sm:mb-4">
+                        <div class="bg-indigo-500 rounded-full p-2 sm:p-3">
+                            <i class="fas fa-key text-white text-lg sm:text-xl"></i>
                         </div>
                     </div>
-                    <h3 class="text-2xl font-bold mb-2">Enter Your PIN</h3>
-                    <p class="text-gray-300 text-sm mb-6">Get instant access to verified answers</p>
+                    <h3 class="text-xl sm:text-2xl font-bold mb-1 sm:mb-2">Enter Your PIN</h3>
+                    <p class="text-gray-300 text-xs sm:text-sm mb-4 sm:mb-6">Get instant access to verified answers</p>
 
-                    <div class="space-y-4">
-                        <input type="text" id="pinInput" maxlength="3" placeholder="Enter 3-digit PIN"
-                               class="w-full text-center text-3xl font-bold p-4 bg-white rounded-xl border-2 border-transparent focus:border-indigo-400 focus:outline-none text-gray-800">
-                        <button onclick="getAnswer()" class="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-bold py-4 rounded-xl transition transform hover:scale-105 shadow-lg">
+                    <div class="space-y-3 sm:space-y-4">
+                        <input type="text" id="pinInput" maxlength="3" placeholder="•••"
+                               class="w-full text-center text-2xl sm:text-3xl font-bold p-3 sm:p-4 bg-white rounded-xl border-2 border-transparent focus:border-indigo-400 focus:outline-none text-gray-800 tracking-widest"
+                               inputmode="numeric" pattern="[0-9]*" autocomplete="off">
+                        <button onclick="getAnswer()" class="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-bold py-3 sm:py-4 rounded-xl transition transform hover:scale-105 shadow-lg text-sm sm:text-base">
                             <i class="fas fa-search mr-2"></i> See Answer
                         </button>
                     </div>
@@ -57,27 +58,27 @@
 </section>
 
 <!-- Answer Display Section - Shows as normal part of the page -->
-<div id="answerSection" class="hidden max-w-4xl mx-auto px-4 my-8">
+<div id="answerSection" class="hidden max-w-4xl mx-auto px-3 sm:px-4 my-6 sm:my-8">
     <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
         <!-- Answer Header -->
-        <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-4">
+        <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-4 sm:px-6 py-3 sm:py-4">
             <div class="flex justify-between items-center">
-                <div>
-                    <i class="fas fa-check-circle text-2xl mr-2"></i>
-                    <span class="text-sm font-semibold">ANSWER FOUND</span>
+                <div class="flex items-center">
+                    <i class="fas fa-check-circle text-xl sm:text-2xl mr-2"></i>
+                    <span class="text-xs sm:text-sm font-semibold">ANSWER FOUND</span>
                 </div>
-                <button onclick="closeAnswer()" class="text-white hover:text-gray-200">
-                    <i class="fas fa-times text-xl"></i>
+                <button onclick="closeAnswer()" class="text-white hover:text-gray-200 p-1">
+                    <i class="fas fa-times text-lg sm:text-xl"></i>
                 </button>
             </div>
         </div>
 
         <!-- Answer Content -->
-        <div class="p-6">
-            <div class="border-b pb-4 mb-4">
-                <h3 class="text-2xl font-bold text-indigo-600" id="answerSubject"></h3>
-                <p class="text-gray-600" id="answerExamType"></p>
-                <div class="mt-2 flex items-center space-x-4 text-sm">
+        <div class="p-4 sm:p-6">
+            <div class="border-b pb-3 sm:pb-4 mb-3 sm:mb-4">
+                <h3 class="text-xl sm:text-2xl font-bold text-indigo-600" id="answerSubject"></h3>
+                <p class="text-gray-600 text-sm sm:text-base" id="answerExamType"></p>
+                <div class="mt-2 flex flex-wrap items-center gap-2 sm:space-x-4 text-xs sm:text-sm">
                     <span class="text-gray-500">
                         <i class="fas fa-eye mr-1"></i> <span id="answerViews">0</span> views
                     </span>
@@ -87,93 +88,93 @@
                 </div>
             </div>
 
-            <div id="answerText" class="prose max-w-none mb-6 text-gray-700 leading-relaxed"></div>
+            <div id="answerText" class="prose max-w-none mb-4 sm:mb-6 text-gray-700 leading-relaxed text-sm sm:text-base"></div>
 
-            <div id="answerImages" class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4"></div>
+            <div id="answerImages" class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-3 sm:mb-4"></div>
 
-            <div class="mt-4 p-4 bg-gray-50 rounded-xl text-center">
+            <div class="mt-3 sm:mt-4 p-3 sm:p-4 bg-gray-50 rounded-xl text-center">
                 <i class="fas fa-share-alt text-gray-400 mr-2"></i>
-                <span class="text-sm text-gray-600">Share this answer with friends who need it!</span>
+                <span class="text-xs sm:text-sm text-gray-600">Share this answer with friends who need it!</span>
             </div>
         </div>
     </div>
 </div>
 
 <!-- Instructions Section -->
-<section class="py-20 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12">
-            <h2 class="text-4xl font-bold text-gray-800 mb-4">How It Works</h2>
-            <p class="text-gray-600 text-lg">Simple steps to access your exam answers</p>
+<section class="py-12 sm:py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        <div class="text-center mb-8 sm:mb-12">
+            <h2 class="text-2xl sm:text-4xl font-bold text-gray-800 mb-2 sm:mb-4">How It Works</h2>
+            <p class="text-gray-600 text-base sm:text-lg">Simple steps to access your exam answers</p>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-8">
-            <div class="bg-white rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition transform hover:-translate-y-2">
-                <div class="w-20 h-20 bg-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                    <i class="fas fa-key text-indigo-600 text-3xl"></i>
+        <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-8">
+            <div class="bg-white rounded-2xl p-5 sm:p-8 text-center shadow-lg hover:shadow-xl transition transform hover:-translate-y-2">
+                <div class="w-16 h-16 sm:w-20 sm:h-20 bg-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6">
+                    <i class="fas fa-key text-indigo-600 text-2xl sm:text-3xl"></i>
                 </div>
-                <h3 class="text-xl font-bold mb-3">1. Get Your PIN</h3>
-                <p class="text-gray-600">Obtain your unique 3-digit PIN from your administrator</p>
+                <h3 class="text-lg sm:text-xl font-bold mb-2 sm:mb-3">1. Get Your PIN</h3>
+                <p class="text-gray-600 text-sm sm:text-base">Obtain your unique 3-digit PIN from your administrator</p>
             </div>
 
-            <div class="bg-white rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition transform hover:-translate-y-2">
-                <div class="w-20 h-20 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                    <i class="fas fa-arrow-right text-purple-600 text-3xl"></i>
+            <div class="bg-white rounded-2xl p-5 sm:p-8 text-center shadow-lg hover:shadow-xl transition transform hover:-translate-y-2">
+                <div class="w-16 h-16 sm:w-20 sm:h-20 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6">
+                    <i class="fas fa-arrow-right text-purple-600 text-2xl sm:text-3xl"></i>
                 </div>
-                <h3 class="text-xl font-bold mb-3">2. Enter PIN</h3>
-                <p class="text-gray-600">Type your 3-digit PIN in the box above and click "See Answer"</p>
+                <h3 class="text-lg sm:text-xl font-bold mb-2 sm:mb-3">2. Enter PIN</h3>
+                <p class="text-gray-600 text-sm sm:text-base">Type your 3-digit PIN in the box above and click "See Answer"</p>
             </div>
 
-            <div class="bg-white rounded-2xl p-8 text-center shadow-lg hover:shadow-xl transition transform hover:-translate-y-2">
-                <div class="w-20 h-20 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                    <i class="fas fa-check-circle text-green-600 text-3xl"></i>
+            <div class="bg-white rounded-2xl p-5 sm:p-8 text-center shadow-lg hover:shadow-xl transition transform hover:-translate-y-2 sm:col-span-2 md:col-span-1">
+                <div class="w-16 h-16 sm:w-20 sm:h-20 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6">
+                    <i class="fas fa-check-circle text-green-600 text-2xl sm:text-3xl"></i>
                 </div>
-                <h3 class="text-xl font-bold mb-3">3. Get Answers</h3>
-                <p class="text-gray-600">View verified answers with text and images instantly</p>
+                <h3 class="text-lg sm:text-xl font-bold mb-2 sm:mb-3">3. Get Answers</h3>
+                <p class="text-gray-600 text-sm sm:text-base">View verified answers with text and images instantly</p>
             </div>
         </div>
 
-        <div class="mt-12 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl p-8">
-            <div class="whitespace-pre-line text-gray-700 leading-relaxed">{{ instructions }}</div>
+        <div class="mt-8 sm:mt-12 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl p-4 sm:p-8">
+            <div class="whitespace-pre-line text-gray-700 leading-relaxed text-sm sm:text-base">{{ instructions }}</div>
         </div>
     </div>
 </section>
 
 <!-- Subjects Section -->
-<section class="py-20 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12">
-            <h2 class="text-4xl font-bold text-gray-800 mb-4">All Subjects Available</h2>
-            <p class="text-gray-600 text-lg">Complete list of WAEC & NECO subjects with practicals</p>
+<section class="py-12 sm:py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+        <div class="text-center mb-8 sm:mb-12">
+            <h2 class="text-2xl sm:text-4xl font-bold text-gray-800 mb-2 sm:mb-4">All Subjects Available</h2>
+            <p class="text-gray-600 text-base sm:text-lg">Complete list of WAEC & NECO subjects with practicals</p>
         </div>
 
         <!-- Search -->
-        <div class="mb-8">
+        <div class="mb-6 sm:mb-8">
             <div class="max-w-md mx-auto">
                 <div class="relative">
-                    <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    <i class="fas fa-search absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm sm:text-base"></i>
                     <input type="text" id="subjectSearch" placeholder="Search subjects..."
-                           class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-xl focus:border-indigo-500 focus:outline-none">
+                           class="w-full pl-9 sm:pl-12 pr-3 sm:pr-4 py-2.5 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-xl focus:border-indigo-500 focus:outline-none">
                 </div>
             </div>
         </div>
 
         <!-- WAEC Subjects -->
-        <div class="mb-12">
-            <h3 class="text-2xl font-bold text-indigo-600 mb-4 flex items-center">
+        <div class="mb-8 sm:mb-12">
+            <h3 class="text-xl sm:text-2xl font-bold text-indigo-600 mb-3 sm:mb-4 flex items-center flex-wrap">
                 <i class="fas fa-graduation-cap mr-2"></i> WAEC Subjects
-                <span class="ml-2 text-sm bg-indigo-100 text-indigo-600 px-2 py-1 rounded-full">{{ waec_subjects|length }}</span>
+                <span class="ml-2 text-xs sm:text-sm bg-indigo-100 text-indigo-600 px-2 py-0.5 sm:py-1 rounded-full">{{ waec_subjects|length }}</span>
             </h3>
-            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 sm:gap-3">
                 {% for subject in waec_subjects %}
-                <div class="subject-item bg-gray-50 rounded-xl p-3 hover:shadow-lg transition cursor-pointer hover:bg-indigo-50" data-name="{{ subject.name|lower }}">
-                    <div class="flex items-center space-x-2">
+                <div class="subject-item bg-gray-50 rounded-xl p-2 sm:p-3 hover:shadow-lg transition cursor-pointer hover:bg-indigo-50" data-name="{{ subject.name|lower }}">
+                    <div class="flex items-center space-x-1.5 sm:space-x-2">
                         {% if subject.has_practical %}
-                        <i class="fas fa-flask text-green-500 text-xs"></i>
+                        <i class="fas fa-flask text-green-500 text-[10px] sm:text-xs"></i>
                         {% else %}
-                        <i class="fas fa-book text-indigo-500 text-xs"></i>
+                        <i class="fas fa-book text-indigo-500 text-[10px] sm:text-xs"></i>
                         {% endif %}
-                        <span class="text-sm font-medium text-gray-700">{{ subject.name }}</span>
+                        <span class="text-xs sm:text-sm font-medium text-gray-700">{{ subject.name }}</span>
                     </div>
                 </div>
                 {% endfor %}
@@ -182,20 +183,20 @@
 
         <!-- NECO Subjects -->
         <div>
-            <h3 class="text-2xl font-bold text-teal-600 mb-4 flex items-center">
+            <h3 class="text-xl sm:text-2xl font-bold text-teal-600 mb-3 sm:mb-4 flex items-center flex-wrap">
                 <i class="fas fa-school mr-2"></i> NECO Subjects
-                <span class="ml-2 text-sm bg-teal-100 text-teal-600 px-2 py-1 rounded-full">{{ neco_subjects|length }}</span>
+                <span class="ml-2 text-xs sm:text-sm bg-teal-100 text-teal-600 px-2 py-0.5 sm:py-1 rounded-full">{{ neco_subjects|length }}</span>
             </h3>
-            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3">
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 sm:gap-3">
                 {% for subject in neco_subjects %}
-                <div class="subject-item bg-gray-50 rounded-xl p-3 hover:shadow-lg transition cursor-pointer hover:bg-teal-50" data-name="{{ subject.name|lower }}">
-                    <div class="flex items-center space-x-2">
+                <div class="subject-item bg-gray-50 rounded-xl p-2 sm:p-3 hover:shadow-lg transition cursor-pointer hover:bg-teal-50" data-name="{{ subject.name|lower }}">
+                    <div class="flex items-center space-x-1.5 sm:space-x-2">
                         {% if subject.has_practical %}
-                        <i class="fas fa-flask text-green-500 text-xs"></i>
+                        <i class="fas fa-flask text-green-500 text-[10px] sm:text-xs"></i>
                         {% else %}
-                        <i class="fas fa-book text-teal-500 text-xs"></i>
+                        <i class="fas fa-book text-teal-500 text-[10px] sm:text-xs"></i>
                         {% endif %}
-                        <span class="text-sm font-medium text-gray-700">{{ subject.name }}</span>
+                        <span class="text-xs sm:text-sm font-medium text-gray-700">{{ subject.name }}</span>
                     </div>
                 </div>
                 {% endfor %}
@@ -205,30 +206,148 @@
 </section>
 
 <!-- Stats Section -->
-<section class="py-16 bg-gradient-to-r from-indigo-900 to-purple-900 text-white">
-    <div class="max-w-7xl mx-auto px-4 text-center">
-        <div class="grid md:grid-cols-3 gap-8">
+<section class="py-12 sm:py-16 bg-gradient-to-r from-indigo-900 to-purple-900 text-white">
+    <div class="max-w-7xl mx-auto px-3 sm:px-4 text-center">
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-8">
             <div>
-                <div class="text-4xl font-bold" id="statPins">-</div>
-                <div class="text-gray-300">Active PINs</div>
+                <div class="text-2xl sm:text-4xl font-bold" id="statPins">-</div>
+                <div class="text-gray-300 text-xs sm:text-base">Active PINs</div>
             </div>
             <div>
-                <div class="text-4xl font-bold" id="statViews">-</div>
-                <div class="text-gray-300">Total Views</div>
+                <div class="text-2xl sm:text-4xl font-bold" id="statViews">-</div>
+                <div class="text-gray-300 text-xs sm:text-base">Total Views</div>
             </div>
-            <div>
-                <div class="text-4xl font-bold">{{ waec_subjects|length + neco_subjects|length }}</div>
-                <div class="text-gray-300">Subjects</div>
+            <div class="col-span-2 sm:col-span-1">
+                <div class="text-2xl sm:text-4xl font-bold">{{ waec_subjects|length + neco_subjects|length }}</div>
+                <div class="text-gray-300 text-xs sm:text-base">Subjects</div>
             </div>
         </div>
     </div>
 </section>
 
-<footer class="bg-gray-900 text-white py-8">
-    <div class="max-w-7xl mx-auto px-4 text-center">
-        <p class="text-gray-400">{{ footer_text }}</p>
+<footer class="bg-gray-900 text-white py-6 sm:py-8">
+    <div class="max-w-7xl mx-auto px-3 sm:px-4 text-center">
+        <p class="text-gray-400 text-xs sm:text-sm">{{ footer_text }}</p>
     </div>
 </footer>
+
+<style>
+/* Mobile-optimized error display */
+#pinError {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+    min-height: 30px;
+    transition: all 0.3s ease;
+}
+
+#pinError.show {
+    display: block !important;
+}
+
+#pinError .error-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    background: rgba(239, 68, 68, 0.2);
+    backdrop-filter: blur(8px);
+    padding: 8px 10px;
+    border-radius: 10px;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+#pinError .error-icon {
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+#pinError .error-message {
+    flex: 1;
+    word-break: break-word;
+    line-height: 1.4;
+}
+
+/* Mobile specific adjustments */
+@media (max-width: 640px) {
+    #pinError {
+        font-size: 13px;
+        margin-top: 10px;
+    }
+    
+    #pinError .error-content {
+        padding: 6px 8px;
+        border-radius: 8px;
+    }
+    
+    .bg-white\/10 {
+        padding: 16px !important;
+    }
+    
+    /* Ensure PIN card doesn't overflow */
+    .max-w-md {
+        width: 100%;
+    }
+}
+
+/* Animations */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-6px); }
+    40% { transform: translateX(6px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+}
+
+#pinError.shake {
+    animation: shake 0.5s ease-in-out;
+}
+
+/* Smooth error appearance */
+#pinError.show {
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* Answer section animation */
+#answerSection {
+    animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Subject items hover effect */
+.subject-item {
+    transition: all 0.3s ease;
+}
+
+.subject-item:hover {
+    transform: translateY(-2px);
+}
+
+/* PIN input focus */
+#pinInput:focus {
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+}
+</style>
 
 <script>
 function getAnswer() {
@@ -236,17 +355,24 @@ function getAnswer() {
     const errorDiv = document.getElementById('pinError');
     const loadingDiv = document.getElementById('pinLoading');
     const answerSection = document.getElementById('answerSection');
+    const submitBtn = document.querySelector('button[onclick="getAnswer()"]');
 
+    // Reset error state
     errorDiv.classList.add('hidden');
+    errorDiv.classList.remove('show', 'shake');
+    errorDiv.style.display = 'none';
+    errorDiv.innerHTML = '';
 
+    // Validation
     if (!pinCode || pinCode.length !== 3 || !/^\d+$/.test(pinCode)) {
-        errorDiv.textContent = '❌ Please enter a valid 3-digit PIN (000-999)';
-        errorDiv.classList.remove('hidden');
+        showMobileError(errorDiv, '❌ Please enter a valid 3-digit PIN (000-999)');
         return;
     }
 
     // Show loading
     loadingDiv.classList.remove('hidden');
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Checking...';
     answerSection.classList.add('hidden');
 
     fetch('/get_answer', {
@@ -257,6 +383,8 @@ function getAnswer() {
     .then(response => response.json())
     .then(data => {
         loadingDiv.classList.add('hidden');
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-search mr-2"></i> See Answer';
 
         if (data.success) {
             // Display answer in the section below
@@ -269,7 +397,7 @@ function getAnswer() {
             imagesDiv.innerHTML = '';
             if (data.images && data.images.length > 0) {
                 data.images.forEach(img => {
-                    imagesDiv.innerHTML += `<img src="/static/${img}" class="rounded-xl shadow-lg" alt="Answer image">`;
+                    imagesDiv.innerHTML += `<img src="/static/${img}" class="rounded-xl shadow-lg w-full" alt="Answer image">`;
                 });
             }
 
@@ -279,35 +407,95 @@ function getAnswer() {
             // Scroll to answer section smoothly
             answerSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         } else {
-            errorDiv.textContent = '❌ ' + data.error;
-            errorDiv.classList.remove('hidden');
+            // Show error with mobile-friendly display
+            showMobileError(errorDiv, '❌ ' + data.error);
+            document.getElementById('pinInput').value = '';
+            document.getElementById('pinInput').focus();
             answerSection.classList.add('hidden');
         }
     })
     .catch(error => {
         loadingDiv.classList.add('hidden');
-        errorDiv.textContent = '❌ An error occurred. Please try again.';
-        errorDiv.classList.remove('hidden');
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = '<i class="fas fa-search mr-2"></i> See Answer';
+        showMobileError(errorDiv, '❌ Connection error. Please try again.');
+        console.error('Error:', error);
     });
+}
+
+// Helper function for mobile-optimized error display
+function showMobileError(errorDiv, message) {
+    // Clear any existing content
+    errorDiv.innerHTML = '';
+    
+    // Create a properly formatted error message
+    const errorContent = document.createElement('div');
+    errorContent.className = 'error-content';
+    errorContent.innerHTML = `
+        <i class="fas fa-exclamation-circle text-red-400 error-icon"></i>
+        <span class="error-message text-red-200">${message}</span>
+    `;
+    
+    errorDiv.appendChild(errorContent);
+    errorDiv.classList.remove('hidden');
+    errorDiv.classList.add('show');
+    errorDiv.style.display = 'block';
+    
+    // Add shake animation
+    errorDiv.classList.add('shake');
+    setTimeout(() => {
+        errorDiv.classList.remove('shake');
+    }, 500);
+    
+    // Auto-hide after 5 seconds on mobile
+    if (window.innerWidth < 640) {
+        setTimeout(() => {
+            errorDiv.style.opacity = '0';
+            errorDiv.style.transition = 'opacity 0.5s ease';
+            setTimeout(() => {
+                errorDiv.classList.add('hidden');
+                errorDiv.style.display = 'none';
+                errorDiv.style.opacity = '1';
+            }, 500);
+        }, 5000);
+    }
 }
 
 function closeAnswer() {
     document.getElementById('answerSection').classList.add('hidden');
     document.getElementById('pinInput').value = '';
     document.getElementById('pinInput').focus();
+    document.getElementById('pinError').classList.add('hidden');
 }
 
-// Subject search
+// Subject search with debounce
+let searchTimeout;
 document.getElementById('subjectSearch')?.addEventListener('input', function(e) {
-    const term = e.target.value.toLowerCase();
-    document.querySelectorAll('.subject-item').forEach(item => {
-        const name = item.getAttribute('data-name');
-        if (name.includes(term)) {
-            item.style.display = 'block';
-        } else {
-            item.style.display = 'none';
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(() => {
+        const term = e.target.value.toLowerCase();
+        let visibleCount = 0;
+        document.querySelectorAll('.subject-item').forEach(item => {
+            const name = item.getAttribute('data-name');
+            const shouldShow = name.includes(term);
+            item.style.display = shouldShow ? 'block' : 'none';
+            if (shouldShow) visibleCount++;
+        });
+        
+        // Show no results message
+        let noResults = document.getElementById('noResults');
+        if (visibleCount === 0 && term.length > 0) {
+            if (!noResults) {
+                const msg = document.createElement('p');
+                msg.id = 'noResults';
+                msg.className = 'text-gray-500 text-center col-span-full py-4 sm:py-8 text-sm sm:text-base';
+                msg.textContent = '🔍 No subjects found matching "' + term + '"';
+                document.querySelector('.grid').parentNode.appendChild(msg);
+            }
+        } else if (noResults) {
+            noResults.remove();
         }
-    });
+    }, 300);
 });
 
 // Enter key submit
@@ -315,22 +503,94 @@ document.getElementById('pinInput').addEventListener('keypress', function(e) {
     if (e.key === 'Enter') getAnswer();
 });
 
-// Load stats
-function loadStats() {
-    fetch('/admin/get_stats')
-        .then(res => res.json())
-        .then(data => {
-            document.getElementById('statPins').textContent = data.total_pins || 0;
-            document.getElementById('statViews').textContent = data.total_views || 0;
-        })
-        .catch(() => {});
-}
-loadStats();
-
-// Clear answer section when typing new PIN
-document.getElementById('pinInput').addEventListener('input', function() {
+// Auto-submit when 3 digits entered
+document.getElementById('pinInput').addEventListener('input', function(e) {
+    // Clear previous states
     document.getElementById('answerSection').classList.add('hidden');
     document.getElementById('pinError').classList.add('hidden');
+    document.getElementById('pinError').innerHTML = '';
+    document.getElementById('pinError').style.display = 'none';
+    
+    // Auto-submit if 3 digits
+    if (this.value.length === 3 && /^\d+$/.test(this.value)) {
+        getAnswer();
+    }
+});
+
+// Keyboard shortcuts
+document.addEventListener('keydown', function(e) {
+    // Escape to close answer
+    if (e.key === 'Escape') {
+        closeAnswer();
+    }
+    // Ctrl+K or Cmd+K to focus PIN input
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        document.getElementById('pinInput').focus();
+        document.getElementById('pinInput').select();
+    }
+});
+
+// Load stats with animation
+function loadStats() {
+    fetch('/admin/get_stats')
+        .then(res => {
+            if (!res.ok) throw new Error('Stats unavailable');
+            return res.json();
+        })
+        .then(data => {
+            animateNumber('statPins', data.total_pins || 0);
+            animateNumber('statViews', data.total_views || 0);
+        })
+        .catch(() => {
+            document.getElementById('statPins').textContent = '—';
+            document.getElementById('statViews').textContent = '—';
+        });
+}
+
+// Animated number counter
+function animateNumber(elementId, target) {
+    const element = document.getElementById(elementId);
+    const current = parseInt(element.textContent) || 0;
+    const duration = 1000;
+    const startTime = performance.now();
+    
+    function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const value = Math.round(current + (target - current) * eased);
+        element.textContent = value;
+        if (progress < 1) {
+            requestAnimationFrame(update);
+        }
+    }
+    requestAnimationFrame(update);
+}
+
+// Initial stats load
+loadStats();
+
+// Refresh stats every 30 seconds
+setInterval(loadStats, 30000);
+
+// Auto-focus on page load
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('pinInput').focus();
+});
+
+// Prevent copy-paste in PIN field
+document.getElementById('pinInput').addEventListener('paste', function(e) {
+    e.preventDefault();
+    return false;
+});
+
+// Prevent right-click on images
+document.addEventListener('contextmenu', function(e) {
+    if (e.target.tagName === 'IMG') {
+        e.preventDefault();
+        return false;
+    }
 });
 </script>
 {% endblock %}
