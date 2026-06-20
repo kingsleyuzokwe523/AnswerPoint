@@ -34,6 +34,7 @@ def create_app():
     # Create tables
     with app.app_context():
         db.create_all()
+        # Import and run init function
         from app.database import init_default_data
         init_default_data()
 
