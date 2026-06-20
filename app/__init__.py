@@ -12,14 +12,14 @@ db = SQLAlchemy()
 
 def create_app():
     app = Flask(__name__,
-                template_folder='../templates',
-                static_folder='../static')
+                template_folder='templates',
+                static_folder='static')
 
     # Configuration
     app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY', 'dev-key-change-in-production')
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///answerpoint.db'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-    app.config['UPLOAD_FOLDER'] = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'static', 'uploads')
+    app.config['UPLOAD_FOLDER'] = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static', 'uploads')
     app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
     # Ensure upload folder exists
@@ -34,6 +34,7 @@ def create_app():
     # Create tables
     with app.app_context():
         db.create_all()
+        # Import and run init function
         from app.database import init_default_data
         init_default_data()
 
