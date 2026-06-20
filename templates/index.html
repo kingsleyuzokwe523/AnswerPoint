@@ -2,53 +2,53 @@
 
 {% block content %}
 <!-- Hero Section -->
-<section class="relative overflow-hidden bg-gradient-to-br from-indigo-900 via-purple-800 to-teal-800 text-white">
-    <div class="relative max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-12 sm:py-20 lg:py-28">
-        <div class="text-center">
-            <div class="inline-flex items-center bg-white/10 backdrop-blur rounded-full px-3 sm:px-4 py-1.5 sm:py-2 mb-4 sm:mb-6">
-                <span class="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-green-400 rounded-full mr-1.5 sm:mr-2 animate-pulse"></span>
-                <span class="text-xs sm:text-sm font-medium">WAEC & NECO 2026 Ready</span>
+<section class="relative overflow-hidden bg-gradient-to-br from-indigo-900 via-purple-800 to-teal-800 text-white" style="overflow-x: hidden; max-width: 100%;">
+    <div class="relative max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-12 sm:py-20 lg:py-28" style="max-width: 100%; overflow-x: hidden;">
+        <div class="text-center" style="max-width: 100%;">
+            <div class="inline-flex items-center bg-white/10 backdrop-blur rounded-full px-3 sm:px-4 py-1.5 sm:py-2 mb-4 sm:mb-6" style="max-width: 100%;">
+                <span class="w-1.5 sm:w-2 h-1.5 sm:h-2 bg-green-400 rounded-full mr-1.5 sm:mr-2 animate-pulse flex-shrink-0"></span>
+                <span class="text-xs sm:text-sm font-medium whitespace-nowrap">WAEC & NECO 2026 Ready</span>
             </div>
 
-            <h1 class="text-3xl sm:text-5xl md:text-7xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-white via-yellow-200 to-white bg-clip-text text-transparent">
+            <h1 class="text-3xl sm:text-5xl md:text-7xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-white via-yellow-200 to-white bg-clip-text text-transparent" style="word-wrap: break-word; hyphens: auto; max-width: 100%;">
                 {{ hero_title }}
             </h1>
 
-            <p class="text-base sm:text-xl md:text-2xl mb-6 sm:mb-8 text-gray-200 max-w-3xl mx-auto px-2">{{ hero_text }}</p>
+            <p class="text-base sm:text-xl md:text-2xl mb-6 sm:mb-8 text-gray-200 max-w-3xl mx-auto px-2" style="word-wrap: break-word; max-width: 100%;">{{ hero_text }}</p>
 
             <!-- Social Links -->
-            <div class="flex flex-wrap justify-center gap-3 sm:gap-4 mb-8 sm:mb-12">
-                <a href="{{ whatsapp_link }}" target="_blank" class="bg-green-600 hover:bg-green-700 text-white px-4 sm:px-8 py-3 sm:py-4 rounded-2xl flex items-center space-x-2 sm:space-x-3 transition transform hover:scale-105 shadow-lg text-sm sm:text-base">
-                    <i class="fab fa-whatsapp text-xl sm:text-2xl"></i>
-                    <span class="font-semibold">Join WhatsApp</span>
+            <div class="flex flex-wrap justify-center gap-2 sm:gap-4 mb-8 sm:mb-12" style="max-width: 100%;">
+                <a href="{{ whatsapp_link }}" target="_blank" class="bg-green-600 hover:bg-green-700 text-white px-3 sm:px-6 py-2.5 sm:py-4 rounded-2xl flex items-center space-x-1.5 sm:space-x-3 transition transform hover:scale-105 shadow-lg text-xs sm:text-base" style="max-width: 100%;">
+                    <i class="fab fa-whatsapp text-lg sm:text-2xl flex-shrink-0"></i>
+                    <span class="font-semibold text-xs sm:text-sm">Join WhatsApp</span>
                 </a>
-                <a href="{{ telegram_link }}" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white px-4 sm:px-8 py-3 sm:py-4 rounded-2xl flex items-center space-x-2 sm:space-x-3 transition transform hover:scale-105 shadow-lg text-sm sm:text-base">
-                    <i class="fab fa-telegram text-xl sm:text-2xl"></i>
-                    <span class="font-semibold">Join Telegram</span>
+                <a href="{{ telegram_link }}" target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white px-3 sm:px-6 py-2.5 sm:py-4 rounded-2xl flex items-center space-x-1.5 sm:space-x-3 transition transform hover:scale-105 shadow-lg text-xs sm:text-base" style="max-width: 100%;">
+                    <i class="fab fa-telegram text-lg sm:text-2xl flex-shrink-0"></i>
+                    <span class="font-semibold text-xs sm:text-sm">Join Telegram</span>
                 </a>
             </div>
 
             <!-- PIN Input Card -->
-            <div class="max-w-md mx-auto px-3 sm:px-0">
-                <div class="bg-white/10 backdrop-blur-xl rounded-3xl p-5 sm:p-8 border border-white/20 shadow-2xl">
+            <div class="max-w-md mx-auto px-2 sm:px-0" style="max-width: 100%; width: 100%;">
+                <div class="bg-white/10 backdrop-blur-xl rounded-3xl p-4 sm:p-8 border border-white/20 shadow-2xl" style="max-width: 100%; width: 100%; overflow: hidden;">
                     <div class="flex items-center justify-center mb-3 sm:mb-4">
-                        <div class="bg-indigo-500 rounded-full p-2 sm:p-3">
+                        <div class="bg-indigo-500 rounded-full p-2 sm:p-3 flex-shrink-0">
                             <i class="fas fa-key text-white text-lg sm:text-xl"></i>
                         </div>
                     </div>
-                    <h3 class="text-xl sm:text-2xl font-bold mb-1 sm:mb-2">Enter Your PIN</h3>
-                    <p class="text-gray-300 text-xs sm:text-sm mb-4 sm:mb-6">Get instant access to verified answers</p>
+                    <h3 class="text-xl sm:text-2xl font-bold mb-1 sm:mb-2" style="word-wrap: break-word;">Enter Your PIN</h3>
+                    <p class="text-gray-300 text-xs sm:text-sm mb-4 sm:mb-6" style="word-wrap: break-word;">Get instant access to verified answers</p>
 
-                    <div class="space-y-3 sm:space-y-4">
+                    <div class="space-y-3 sm:space-y-4" style="max-width: 100%; width: 100%;">
                         <input type="text" id="pinInput" maxlength="3" placeholder="•••"
                                class="w-full text-center text-2xl sm:text-3xl font-bold p-3 sm:p-4 bg-white rounded-xl border-2 border-transparent focus:border-indigo-400 focus:outline-none text-gray-800 tracking-widest"
-                               inputmode="numeric" pattern="[0-9]*" autocomplete="off">
-                        <button onclick="getAnswer()" class="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-bold py-3 sm:py-4 rounded-xl transition transform hover:scale-105 shadow-lg text-sm sm:text-base">
+                               inputmode="numeric" pattern="[0-9]*" autocomplete="off" style="max-width: 100%; box-sizing: border-box;">
+                        <button onclick="getAnswer()" class="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-bold py-3 sm:py-4 rounded-xl transition transform hover:scale-105 shadow-lg text-sm sm:text-base" style="max-width: 100%; box-sizing: border-box;">
                             <i class="fas fa-search mr-2"></i> See Answer
                         </button>
                     </div>
-                    <div id="pinError" class="text-red-300 text-sm mt-3 hidden"></div>
-                    <div id="pinLoading" class="text-yellow-300 text-sm mt-3 hidden">
+                    <div id="pinError" class="text-red-300 text-sm mt-3 hidden" style="max-width: 100%; word-wrap: break-word;"></div>
+                    <div id="pinLoading" class="text-yellow-300 text-sm mt-3 hidden" style="max-width: 100%;">
                         <i class="fas fa-spinner fa-spin mr-2"></i> Loading answer...
                     </div>
                 </div>
@@ -57,27 +57,27 @@
     </div>
 </section>
 
-<!-- Answer Display Section - Shows as normal part of the page -->
-<div id="answerSection" class="hidden max-w-4xl mx-auto px-3 sm:px-4 my-6 sm:my-8">
-    <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+<!-- Answer Display Section -->
+<div id="answerSection" class="hidden max-w-4xl mx-auto px-3 sm:px-4 my-6 sm:my-8" style="max-width: 100%; overflow: hidden;">
+    <div class="bg-white rounded-2xl shadow-xl overflow-hidden" style="max-width: 100%;">
         <!-- Answer Header -->
         <div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-4 sm:px-6 py-3 sm:py-4">
             <div class="flex justify-between items-center">
                 <div class="flex items-center">
-                    <i class="fas fa-check-circle text-xl sm:text-2xl mr-2"></i>
+                    <i class="fas fa-check-circle text-xl sm:text-2xl mr-2 flex-shrink-0"></i>
                     <span class="text-xs sm:text-sm font-semibold">ANSWER FOUND</span>
                 </div>
-                <button onclick="closeAnswer()" class="text-white hover:text-gray-200 p-1">
+                <button onclick="closeAnswer()" class="text-white hover:text-gray-200 p-1 flex-shrink-0">
                     <i class="fas fa-times text-lg sm:text-xl"></i>
                 </button>
             </div>
         </div>
 
         <!-- Answer Content -->
-        <div class="p-4 sm:p-6">
+        <div class="p-4 sm:p-6" style="max-width: 100%; overflow-wrap: break-word;">
             <div class="border-b pb-3 sm:pb-4 mb-3 sm:mb-4">
-                <h3 class="text-xl sm:text-2xl font-bold text-indigo-600" id="answerSubject"></h3>
-                <p class="text-gray-600 text-sm sm:text-base" id="answerExamType"></p>
+                <h3 class="text-xl sm:text-2xl font-bold text-indigo-600" id="answerSubject" style="word-wrap: break-word;"></h3>
+                <p class="text-gray-600 text-sm sm:text-base" id="answerExamType" style="word-wrap: break-word;"></p>
                 <div class="mt-2 flex flex-wrap items-center gap-2 sm:space-x-4 text-xs sm:text-sm">
                     <span class="text-gray-500">
                         <i class="fas fa-eye mr-1"></i> <span id="answerViews">0</span> views
@@ -88,11 +88,13 @@
                 </div>
             </div>
 
-            <div id="answerText" class="prose max-w-none mb-4 sm:mb-6 text-gray-700 leading-relaxed text-sm sm:text-base"></div>
+            <div id="answerText" class="prose max-w-none mb-4 sm:mb-6 text-gray-700 leading-relaxed text-sm sm:text-base" style="word-wrap: break-word; max-width: 100%;"></div>
 
-            <div id="answerImages" class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-3 sm:mb-4"></div>
+            <div id="answerImages" class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-3 sm:mb-4" style="max-width: 100%;">
+                <!-- Images will be inserted here -->
+            </div>
 
-            <div class="mt-3 sm:mt-4 p-3 sm:p-4 bg-gray-50 rounded-xl text-center">
+            <div class="mt-3 sm:mt-4 p-3 sm:p-4 bg-gray-50 rounded-xl text-center" style="max-width: 100%;">
                 <i class="fas fa-share-alt text-gray-400 mr-2"></i>
                 <span class="text-xs sm:text-sm text-gray-600">Share this answer with friends who need it!</span>
             </div>
@@ -101,80 +103,81 @@
 </div>
 
 <!-- Instructions Section -->
-<section class="py-12 sm:py-20 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+<section class="py-12 sm:py-20 bg-gray-50" style="overflow-x: hidden; max-width: 100%;">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8" style="max-width: 100%; overflow: hidden;">
         <div class="text-center mb-8 sm:mb-12">
-            <h2 class="text-2xl sm:text-4xl font-bold text-gray-800 mb-2 sm:mb-4">How It Works</h2>
-            <p class="text-gray-600 text-base sm:text-lg">Simple steps to access your exam answers</p>
+            <h2 class="text-2xl sm:text-4xl font-bold text-gray-800 mb-2 sm:mb-4" style="word-wrap: break-word;">How It Works</h2>
+            <p class="text-gray-600 text-base sm:text-lg" style="word-wrap: break-word;">Simple steps to access your exam answers</p>
         </div>
 
-        <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-8">
-            <div class="bg-white rounded-2xl p-5 sm:p-8 text-center shadow-lg hover:shadow-xl transition transform hover:-translate-y-2">
-                <div class="w-16 h-16 sm:w-20 sm:h-20 bg-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6">
+        <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-8" style="max-width: 100%;">
+            <div class="bg-white rounded-2xl p-5 sm:p-8 text-center shadow-lg hover:shadow-xl transition transform hover:-translate-y-2" style="max-width: 100%; overflow: hidden;">
+                <div class="w-16 h-16 sm:w-20 sm:h-20 bg-indigo-100 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6 flex-shrink-0">
                     <i class="fas fa-key text-indigo-600 text-2xl sm:text-3xl"></i>
                 </div>
-                <h3 class="text-lg sm:text-xl font-bold mb-2 sm:mb-3">1. Get Your PIN</h3>
-                <p class="text-gray-600 text-sm sm:text-base">Obtain your unique 3-digit PIN from your administrator</p>
+                <h3 class="text-lg sm:text-xl font-bold mb-2 sm:mb-3" style="word-wrap: break-word;">1. Get Your PIN</h3>
+                <p class="text-gray-600 text-sm sm:text-base" style="word-wrap: break-word;">Obtain your unique 3-digit PIN from your administrator</p>
             </div>
 
-            <div class="bg-white rounded-2xl p-5 sm:p-8 text-center shadow-lg hover:shadow-xl transition transform hover:-translate-y-2">
-                <div class="w-16 h-16 sm:w-20 sm:h-20 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6">
+            <div class="bg-white rounded-2xl p-5 sm:p-8 text-center shadow-lg hover:shadow-xl transition transform hover:-translate-y-2" style="max-width: 100%; overflow: hidden;">
+                <div class="w-16 h-16 sm:w-20 sm:h-20 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6 flex-shrink-0">
                     <i class="fas fa-arrow-right text-purple-600 text-2xl sm:text-3xl"></i>
                 </div>
-                <h3 class="text-lg sm:text-xl font-bold mb-2 sm:mb-3">2. Enter PIN</h3>
-                <p class="text-gray-600 text-sm sm:text-base">Type your 3-digit PIN in the box above and click "See Answer"</p>
+                <h3 class="text-lg sm:text-xl font-bold mb-2 sm:mb-3" style="word-wrap: break-word;">2. Enter PIN</h3>
+                <p class="text-gray-600 text-sm sm:text-base" style="word-wrap: break-word;">Type your 3-digit PIN in the box above and click "See Answer"</p>
             </div>
 
-            <div class="bg-white rounded-2xl p-5 sm:p-8 text-center shadow-lg hover:shadow-xl transition transform hover:-translate-y-2 sm:col-span-2 md:col-span-1">
-                <div class="w-16 h-16 sm:w-20 sm:h-20 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6">
+            <div class="bg-white rounded-2xl p-5 sm:p-8 text-center shadow-lg hover:shadow-xl transition transform hover:-translate-y-2 sm:col-span-2 md:col-span-1" style="max-width: 100%; overflow: hidden;">
+                <div class="w-16 h-16 sm:w-20 sm:h-20 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-4 sm:mb-6 flex-shrink-0">
                     <i class="fas fa-check-circle text-green-600 text-2xl sm:text-3xl"></i>
                 </div>
-                <h3 class="text-lg sm:text-xl font-bold mb-2 sm:mb-3">3. Get Answers</h3>
-                <p class="text-gray-600 text-sm sm:text-base">View verified answers with text and images instantly</p>
+                <h3 class="text-lg sm:text-xl font-bold mb-2 sm:mb-3" style="word-wrap: break-word;">3. Get Answers</h3>
+                <p class="text-gray-600 text-sm sm:text-base" style="word-wrap: break-word;">View verified answers with text and images instantly</p>
             </div>
         </div>
 
-        <div class="mt-8 sm:mt-12 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl p-4 sm:p-8">
-            <div class="whitespace-pre-line text-gray-700 leading-relaxed text-sm sm:text-base">{{ instructions }}</div>
+        <div class="mt-8 sm:mt-12 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl p-4 sm:p-8" style="max-width: 100%; overflow: hidden;">
+            <div class="whitespace-pre-line text-gray-700 leading-relaxed text-sm sm:text-base" style="word-wrap: break-word; max-width: 100%;">{{ instructions }}</div>
         </div>
     </div>
 </section>
 
 <!-- Subjects Section -->
-<section class="py-12 sm:py-20 bg-white">
-    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+<section class="py-12 sm:py-20 bg-white" style="overflow-x: hidden; max-width: 100%;">
+    <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8" style="max-width: 100%; overflow: hidden;">
         <div class="text-center mb-8 sm:mb-12">
-            <h2 class="text-2xl sm:text-4xl font-bold text-gray-800 mb-2 sm:mb-4">All Subjects Available</h2>
-            <p class="text-gray-600 text-base sm:text-lg">Complete list of WAEC & NECO subjects with practicals</p>
+            <h2 class="text-2xl sm:text-4xl font-bold text-gray-800 mb-2 sm:mb-4" style="word-wrap: break-word;">All Subjects Available</h2>
+            <p class="text-gray-600 text-base sm:text-lg" style="word-wrap: break-word;">Complete list of WAEC & NECO subjects with practicals</p>
         </div>
 
         <!-- Search -->
-        <div class="mb-6 sm:mb-8">
-            <div class="max-w-md mx-auto">
-                <div class="relative">
+        <div class="mb-6 sm:mb-8" style="max-width: 100%;">
+            <div class="max-w-md mx-auto" style="max-width: 100%;">
+                <div class="relative" style="max-width: 100%;">
                     <i class="fas fa-search absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm sm:text-base"></i>
                     <input type="text" id="subjectSearch" placeholder="Search subjects..."
-                           class="w-full pl-9 sm:pl-12 pr-3 sm:pr-4 py-2.5 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-xl focus:border-indigo-500 focus:outline-none">
+                           class="w-full pl-9 sm:pl-12 pr-3 sm:pr-4 py-2.5 sm:py-3 text-sm sm:text-base border border-gray-300 rounded-xl focus:border-indigo-500 focus:outline-none" style="max-width: 100%; box-sizing: border-box;">
                 </div>
             </div>
         </div>
 
         <!-- WAEC Subjects -->
-        <div class="mb-8 sm:mb-12">
+        <div class="mb-8 sm:mb-12" style="max-width: 100%;">
             <h3 class="text-xl sm:text-2xl font-bold text-indigo-600 mb-3 sm:mb-4 flex items-center flex-wrap">
-                <i class="fas fa-graduation-cap mr-2"></i> WAEC Subjects
-                <span class="ml-2 text-xs sm:text-sm bg-indigo-100 text-indigo-600 px-2 py-0.5 sm:py-1 rounded-full">{{ waec_subjects|length }}</span>
+                <i class="fas fa-graduation-cap mr-2 flex-shrink-0"></i> 
+                <span>WAEC Subjects</span>
+                <span class="ml-2 text-xs sm:text-sm bg-indigo-100 text-indigo-600 px-2 py-0.5 sm:py-1 rounded-full flex-shrink-0">{{ waec_subjects|length }}</span>
             </h3>
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 sm:gap-3">
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 sm:gap-3" style="max-width: 100%;">
                 {% for subject in waec_subjects %}
-                <div class="subject-item bg-gray-50 rounded-xl p-2 sm:p-3 hover:shadow-lg transition cursor-pointer hover:bg-indigo-50" data-name="{{ subject.name|lower }}">
+                <div class="subject-item bg-gray-50 rounded-xl p-2 sm:p-3 hover:shadow-lg transition cursor-pointer hover:bg-indigo-50" data-name="{{ subject.name|lower }}" style="max-width: 100%; overflow: hidden;">
                     <div class="flex items-center space-x-1.5 sm:space-x-2">
                         {% if subject.has_practical %}
-                        <i class="fas fa-flask text-green-500 text-[10px] sm:text-xs"></i>
+                        <i class="fas fa-flask text-green-500 text-[10px] sm:text-xs flex-shrink-0"></i>
                         {% else %}
-                        <i class="fas fa-book text-indigo-500 text-[10px] sm:text-xs"></i>
+                        <i class="fas fa-book text-indigo-500 text-[10px] sm:text-xs flex-shrink-0"></i>
                         {% endif %}
-                        <span class="text-xs sm:text-sm font-medium text-gray-700">{{ subject.name }}</span>
+                        <span class="text-xs sm:text-sm font-medium text-gray-700" style="word-wrap: break-word;">{{ subject.name }}</span>
                     </div>
                 </div>
                 {% endfor %}
@@ -182,21 +185,22 @@
         </div>
 
         <!-- NECO Subjects -->
-        <div>
+        <div style="max-width: 100%;">
             <h3 class="text-xl sm:text-2xl font-bold text-teal-600 mb-3 sm:mb-4 flex items-center flex-wrap">
-                <i class="fas fa-school mr-2"></i> NECO Subjects
-                <span class="ml-2 text-xs sm:text-sm bg-teal-100 text-teal-600 px-2 py-0.5 sm:py-1 rounded-full">{{ neco_subjects|length }}</span>
+                <i class="fas fa-school mr-2 flex-shrink-0"></i>
+                <span>NECO Subjects</span>
+                <span class="ml-2 text-xs sm:text-sm bg-teal-100 text-teal-600 px-2 py-0.5 sm:py-1 rounded-full flex-shrink-0">{{ neco_subjects|length }}</span>
             </h3>
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 sm:gap-3">
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2 sm:gap-3" style="max-width: 100%;">
                 {% for subject in neco_subjects %}
-                <div class="subject-item bg-gray-50 rounded-xl p-2 sm:p-3 hover:shadow-lg transition cursor-pointer hover:bg-teal-50" data-name="{{ subject.name|lower }}">
+                <div class="subject-item bg-gray-50 rounded-xl p-2 sm:p-3 hover:shadow-lg transition cursor-pointer hover:bg-teal-50" data-name="{{ subject.name|lower }}" style="max-width: 100%; overflow: hidden;">
                     <div class="flex items-center space-x-1.5 sm:space-x-2">
                         {% if subject.has_practical %}
-                        <i class="fas fa-flask text-green-500 text-[10px] sm:text-xs"></i>
+                        <i class="fas fa-flask text-green-500 text-[10px] sm:text-xs flex-shrink-0"></i>
                         {% else %}
-                        <i class="fas fa-book text-teal-500 text-[10px] sm:text-xs"></i>
+                        <i class="fas fa-book text-teal-500 text-[10px] sm:text-xs flex-shrink-0"></i>
                         {% endif %}
-                        <span class="text-xs sm:text-sm font-medium text-gray-700">{{ subject.name }}</span>
+                        <span class="text-xs sm:text-sm font-medium text-gray-700" style="word-wrap: break-word;">{{ subject.name }}</span>
                     </div>
                 </div>
                 {% endfor %}
@@ -206,9 +210,9 @@
 </section>
 
 <!-- Stats Section -->
-<section class="py-12 sm:py-16 bg-gradient-to-r from-indigo-900 to-purple-900 text-white">
-    <div class="max-w-7xl mx-auto px-3 sm:px-4 text-center">
-        <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-8">
+<section class="py-12 sm:py-16 bg-gradient-to-r from-indigo-900 to-purple-900 text-white" style="overflow-x: hidden; max-width: 100%;">
+    <div class="max-w-7xl mx-auto px-3 sm:px-4 text-center" style="max-width: 100%;">
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-8" style="max-width: 100%;">
             <div>
                 <div class="text-2xl sm:text-4xl font-bold" id="statPins">-</div>
                 <div class="text-gray-300 text-xs sm:text-base">Active PINs</div>
@@ -225,13 +229,25 @@
     </div>
 </section>
 
-<footer class="bg-gray-900 text-white py-6 sm:py-8">
-    <div class="max-w-7xl mx-auto px-3 sm:px-4 text-center">
-        <p class="text-gray-400 text-xs sm:text-sm">{{ footer_text }}</p>
+<footer class="bg-gray-900 text-white py-6 sm:py-8" style="overflow-x: hidden; max-width: 100%;">
+    <div class="max-w-7xl mx-auto px-3 sm:px-4 text-center" style="max-width: 100%;">
+        <p class="text-gray-400 text-xs sm:text-sm" style="word-wrap: break-word;">{{ footer_text }}</p>
     </div>
 </footer>
 
 <style>
+/* Global reset for mobile */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
 /* Mobile-optimized error display */
 #pinError {
     word-wrap: break-word;
@@ -254,6 +270,7 @@
     padding: 8px 10px;
     border-radius: 10px;
     border: 1px solid rgba(239, 68, 68, 0.3);
+    max-width: 100%;
 }
 
 #pinError .error-icon {
@@ -283,9 +300,21 @@
         padding: 16px !important;
     }
     
-    /* Ensure PIN card doesn't overflow */
-    .max-w-md {
+    /* Ensure everything fits */
+    .max-w-md, .max-w-7xl, .max-w-4xl {
+        max-width: 100% !important;
+    }
+    
+    /* Fix grid overflow */
+    .grid {
         width: 100%;
+        max-width: 100%;
+    }
+    
+    /* Fix input width */
+    input, button {
+        max-width: 100% !important;
+        box-sizing: border-box !important;
     }
 }
 
@@ -347,6 +376,12 @@
 #pinInput:focus {
     box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
 }
+
+/* Ensure images don't overflow */
+#answerImages img {
+    max-width: 100%;
+    height: auto;
+}
 </style>
 
 <script>
@@ -397,7 +432,7 @@ function getAnswer() {
             imagesDiv.innerHTML = '';
             if (data.images && data.images.length > 0) {
                 data.images.forEach(img => {
-                    imagesDiv.innerHTML += `<img src="/static/${img}" class="rounded-xl shadow-lg w-full" alt="Answer image">`;
+                    imagesDiv.innerHTML += `<img src="/static/${img}" class="rounded-xl shadow-lg" style="max-width: 100%; height: auto;" alt="Answer image">`;
                 });
             }
 
