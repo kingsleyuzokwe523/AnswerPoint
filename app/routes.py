@@ -11,13 +11,12 @@ from collections import defaultdict
 request_history = defaultdict(list)
 BLOCKED_IPS = set()
 BLOCKED_USER_AGENTS = [
-    r'Chrome/14[89]\.',  # Blocks Chrome 148, 149
+    r'Chrome/14[89]\.',
     r'OPR/99\.',
     r'UptimeRobot',
 ]
 
 def is_bot(user_agent):
-    """Check if user agent is a known bot"""
     if not user_agent:
         return True
     for pattern in BLOCKED_USER_AGENTS:
@@ -25,32 +24,25 @@ def is_bot(user_agent):
             return True
     return False
 
-# ==================== BLUEPRINT INITIALIZATION ====================
+# ==================== BLUEPRINT ====================
 main_bp = Blueprint('main', __name__)
 
-# ==================== BEFORE REQUEST HOOK ====================
+# ==================== BEFORE REQUEST ====================
 @main_bp.before_request
 def block_bots_and_rate_limit():
-    """Block bots and rate limit requests"""
-    # Block bots by User-Agent
     user_agent = request.headers.get('User-Agent', '')
     if is_bot(user_agent):
-        print(f"🚫 Blocked bot: {user_agent[:50]}...")
-        abort(403)  # Forbidden
+        abort(403)
     
-    # Rate limit by IP
     ip = request.remote_addr
     now = time.time()
-    
-    # Clean old requests (keep last 60 seconds)
     request_history[ip] = [t for t in request_history[ip] if now - t < 60]
-    
-    # Allow max 30 requests per minute per IP
     if len(request_history[ip]) >= 30:
-        print(f"⛔ Rate limit exceeded for IP: {ip}")
-        abort(429)  # Too Many Requests
-    
+        abort(429)
     request_history[ip].append(now)
+
+# ==================== THE REST OF YOUR ROUTES GOES HERE ====================
+# ... (all your existing routes like @main_bp.route('/'), etc.)
 
 # ==================== IMAGE SERVING ROUTES ====================
 @main_bp.route('/debug_templates')
