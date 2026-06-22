@@ -46,7 +46,7 @@ def create_app():
     app.register_blueprint(main_bp)
     app.register_blueprint(admin_bp, url_prefix='/admin')
 
-    # ✅ FIXED: Move before_request INSIDE create_app
+    # ✅ This is CORRECT - it's INSIDE create_app() after app is created
     @app.before_request
     def before_request():
         # Your global code here if needed
