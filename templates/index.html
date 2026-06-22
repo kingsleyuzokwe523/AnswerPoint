@@ -620,7 +620,28 @@ document.getElementById('pinInput').addEventListener('paste', function(e) {
     e.preventDefault();
     return false;
 });
+// Detect if user is viewing in desktop mode on mobile
+function checkViewportMode() {
+    const isMobile = window.innerWidth <= 1024;
+    const isDesktopMode = window.innerWidth >= 768 && window.outerWidth > window.innerWidth;
+    
+    if (isMobile && isDesktopMode) {
+        // User is using "Desktop Site" on mobile
+        document.body.classList.add('desktop-mode-on-mobile');
+        
+        // Add a class to fix layout
+        const containers = document.querySelectorAll('.max-w-7xl, .max-w-4xl, .max-w-md');
+        containers.forEach(el => {
+            el.style.maxWidth = '100%';
+            el.style.paddingLeft = '12px';
+            el.style.paddingRight = '12px';
+        });
+    }
+}
 
+// Run on load and resize
+document.addEventListener('DOMContentLoaded', checkViewportMode);
+window.addEventListener('resize', checkViewportMode);
 // Prevent right-click on images
 document.addEventListener('contextmenu', function(e) {
     if (e.target.tagName === 'IMG') {
