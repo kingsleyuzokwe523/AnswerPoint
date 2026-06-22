@@ -458,7 +458,7 @@ function getAnswer() {
     });
 }
 
-// Helper function for mobile-optimized error display
+// Helper function for mobile-optimized error display - FIXED
 function showMobileError(errorDiv, message) {
     // Clear any existing content
     errorDiv.innerHTML = '';
@@ -475,6 +475,7 @@ function showMobileError(errorDiv, message) {
     errorDiv.classList.remove('hidden');
     errorDiv.classList.add('show');
     errorDiv.style.display = 'block';
+    errorDiv.style.width = '100%';
     
     // Add shake animation
     errorDiv.classList.add('shake');
