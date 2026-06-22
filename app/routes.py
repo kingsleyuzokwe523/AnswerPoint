@@ -1,15 +1,13 @@
-from flask import Blueprint, render_template, request, jsonify, session, send_from_directory, abort
+from flask import Blueprint, render_template, request, jsonify, session, send_from_directory, abort, current_app
 from app import db
 from app.models import Subject, Pin, Image, HomeContent, ExamTimetable, SiteSettings
+from functools import wraps
 import os
 import re
-from flask import Blueprint, render_template, request, abort, current_app
-from functools import wraps
 import time
 from collections import defaultdict
-import re
 
-# Rate limiting setup
+# ==================== RATE LIMITING SETUP ====================
 request_history = defaultdict(list)
 BLOCKED_IPS = set()
 BLOCKED_USER_AGENTS = [
@@ -28,11 +26,9 @@ def is_bot(user_agent):
     return False
 
 # ==================== BLUEPRINT INITIALIZATION ====================
-# IMPORTANT: Define the blueprint FIRST before using it!
 main_bp = Blueprint('main', __name__)
 
 # ==================== BEFORE REQUEST HOOK ====================
-# NOW the blueprint exists, so this works!
 @main_bp.before_request
 def block_bots_and_rate_limit():
     """Block bots and rate limit requests"""
@@ -306,7 +302,7 @@ def index():
 
 @main_bp.route('/get_answer', methods=['POST'])
 def get_answer():
-    """Get answer for a PIN with proper image path handling - IMAGES NEVER EXPIRE"""
+    """Get answer for a PIN with proper image path handling"""
     pin_code = request.form.get('pin_code', '').strip()
 
     print(f"🔍 Looking for PIN: {pin_code}")
@@ -330,7 +326,7 @@ def get_answer():
     if not answer_text:
         answer_text = '<p>No answer content available for this PIN.</p>'
 
-    # FIXED: Clean and fix image paths - images stay forever
+    # Fix image paths
     if answer_text and '<img' in answer_text:
         def fix_image_path(match):
             src = match.group(1)
@@ -365,8 +361,9 @@ def get_answer():
         'subject_name': pin.subject_name or 'Unknown',
         'posted_by': getattr(pin, 'posted_by', 'AnswerPoint'),
         'pin_code': pin.pin_code,
-        'answer_text_color': getattr(pin, 'answer_text_color', '#000000')  # Changed to BLACK default
+        'answer_text_color': getattr(pin, 'answer_text_color', '#000000')
     })
+
 
 @main_bp.route('/subjects')
 def subjects():
