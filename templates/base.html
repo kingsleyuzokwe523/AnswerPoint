@@ -7,38 +7,266 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-        * { font-family: 'Inter', sans-serif; }
-        .gradient-bg {
-            background: linear-gradient(135deg, #4F46E5 0%, #0D9488 100%);
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+    
+    * { 
+        font-family: 'Inter', sans-serif; 
+        box-sizing: border-box;
+        max-width: 100%;
+    }
+    
+    /* Global reset for mobile */
+    html, body {
+        max-width: 100%;
+        overflow-x: hidden;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+
+    /* Force all containers to stay within viewport */
+    section, div, .container, .max-w-7xl, .max-w-md, .max-w-4xl {
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+    }
+
+    /* Original styles */
+    .gradient-bg {
+        background: linear-gradient(135deg, #4F46E5 0%, #0D9488 100%);
+    }
+    
+    .glass-effect {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+    }
+    
+    .pin-input:focus {
+        box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.3);
+    }
+    
+    .answer-card {
+        animation: fadeIn 0.5s ease-in;
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .subject-card:hover {
+        transform: translateY(-5px);
+        transition: all 0.3s ease;
+    }
+    
+    .ticker {
+        animation: ticker 20s linear infinite;
+    }
+    
+    @keyframes ticker {
+        0% { transform: translateX(100%); }
+        100% { transform: translateX(-100%); }
+    }
+
+    /* ===== MOBILE ERROR DISPLAY FIXES ===== */
+    #pinError {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        max-width: 100%;
+        min-height: 30px;
+        transition: all 0.3s ease;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    #pinError.show {
+        display: block !important;
+        width: 100% !important;
+    }
+
+    #pinError .error-content {
+        display: flex;
+        align-items: flex-start;
+        gap: 6px;
+        background: rgba(239, 68, 68, 0.2);
+        backdrop-filter: blur(8px);
+        padding: 10px 12px;
+        border-radius: 10px;
+        border: 1px solid rgba(239, 68, 68, 0.3);
+        max-width: 100% !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        margin: 0 !important;
+    }
+
+    #pinError .error-icon {
+        flex-shrink: 0;
+        margin-top: 1px;
+    }
+
+    #pinError .error-message {
+        flex: 1;
+        word-break: break-word;
+        line-height: 1.4;
+        max-width: 100%;
+    }
+
+    /* Fix the PIN input card container */
+    .bg-white\/10 {
+        max-width: 100% !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+    }
+
+    /* Ensure all inputs and buttons fit */
+    input, button {
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Subject items hover effect */
+    .subject-item {
+        transition: all 0.3s ease;
+    }
+
+    .subject-item:hover {
+        transform: translateY(-2px);
+    }
+
+    /* PIN input focus */
+    #pinInput:focus {
+        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.3);
+    }
+
+    /* Ensure images don't overflow */
+    #answerImages img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* ===== MOBILE SPECIFIC ===== */
+    @media (max-width: 640px) {
+        #pinError {
+            font-size: 13px;
+            margin-top: 10px !important;
+            width: 100% !important;
+            padding: 0 !important;
         }
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+        
+        #pinError .error-content {
+            padding: 8px 10px;
+            border-radius: 8px;
+            width: 100% !important;
         }
-        .pin-input:focus {
-            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.3);
+        
+        #pinError .error-message {
+            font-size: 13px;
         }
-        .answer-card {
-            animation: fadeIn 0.5s ease-in;
+        
+        .bg-white\/10 {
+            padding: 16px !important;
+            width: 100% !important;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        
+        .max-w-md, .max-w-7xl, .max-w-4xl {
+            max-width: 100% !important;
+            padding-left: 8px !important;
+            padding-right: 8px !important;
         }
-        .subject-card:hover {
-            transform: translateY(-5px);
-            transition: all 0.3s ease;
+        
+        .grid {
+            width: 100%;
+            max-width: 100% !important;
+            margin: 0 !important;
         }
-        .ticker {
-            animation: ticker 20s linear infinite;
+        
+        .relative {
+            max-width: 100% !important;
+            overflow-x: hidden !important;
         }
-        @keyframes ticker {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
+        
+        .flex-wrap {
+            max-width: 100% !important;
         }
-    </style>
+        
+        h1, h2, h3, p {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            max-width: 100%;
+        }
+        
+        #pinInput {
+            width: 100% !important;
+            max-width: 100% !important;
+            font-size: 24px !important;
+            padding: 12px !important;
+        }
+        
+        button[onclick="getAnswer()"] {
+            width: 100% !important;
+            max-width: 100% !important;
+            font-size: 14px !important;
+            padding: 12px !important;
+        }
+        
+        #answerSection {
+            padding: 0 8px !important;
+            width: 100% !important;
+        }
+        
+        #answerSection .bg-white {
+            border-radius: 16px !important;
+            width: 100% !important;
+            overflow: hidden !important;
+        }
+    }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        20% { transform: translateX(-6px); }
+        40% { transform: translateX(6px); }
+        60% { transform: translateX(-4px); }
+        80% { transform: translateX(4px); }
+    }
+
+    #pinError.shake {
+        animation: shake 0.5s ease-in-out;
+    }
+
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-10px) scale(0.95);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
+
+    #pinError.show {
+        animation: slideDown 0.3s ease-out;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    #answerSection {
+        animation: fadeInUp 0.5s ease-out;
+    }
+</style>
 </head>
 <body class="bg-gray-50">
     <!-- Navigation -->
