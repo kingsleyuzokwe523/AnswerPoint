@@ -1,3 +1,5 @@
+# app/__init__.py
+
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 import os
@@ -44,7 +46,7 @@ def create_app():
     app.register_blueprint(main_bp)
     app.register_blueprint(admin_bp, url_prefix='/admin')
 
-    # Add any global before_request here if needed
+    # ✅ FIXED: Move before_request INSIDE create_app
     @app.before_request
     def before_request():
         # Your global code here if needed
