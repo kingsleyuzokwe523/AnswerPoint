@@ -7,65 +7,188 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
+        /* Rich Editor Styles */
+        .editor-toolbar {
+            background: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 4px 8px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2px;
+            align-items: center;
+        }
+        .editor-toolbar .divider {
+            width: 1px;
+            height: 24px;
+            background: #cbd5e1;
+            margin: 0 4px;
+        }
+        .editor-toolbar button {
+            padding: 6px 10px;
+            border-radius: 4px;
+            transition: all 0.2s;
+            font-size: 14px;
+            color: #334155;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+        }
+        .editor-toolbar button:hover {
+            background: #e2e8f0;
+        }
         .editor-toolbar button.active {
-            background-color: #e0e7ff;
-            color: #4f46e5;
+            background: #dbeafe;
+            color: #2563eb;
         }
-        .link-popup {
-            animation: fadeIn 0.2s ease-in-out;
+        .editor-toolbar button svg {
+            width: 16px;
+            height: 16px;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.95); }
-            to { opacity: 1; transform: scale(1); }
+        #answerEditor {
+            min-height: 250px;
+            padding: 12px 16px;
+            outline: none;
+            background: white;
+            line-height: 1.8;
+            font-size: 15px;
+            overflow-y: auto;
+        }
+        #answerEditor:empty:before {
+            content: attr(placeholder);
+            color: #94a3b8;
+            pointer-events: none;
         }
         #answerEditor a {
-            color: #4f46e5;
+            color: #2563eb;
             text-decoration: underline;
             cursor: pointer;
         }
         #answerEditor a:hover {
-            color: #818cf8;
+            color: #1d4ed8;
+        }
+        #answerEditor img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 8px 0;
+        }
+        #answerEditor blockquote {
+            border-left: 4px solid #818cf8;
+            padding-left: 16px;
+            margin: 12px 0;
+            color: #475569;
+        }
+        #answerEditor ul, #answerEditor ol {
+            padding-left: 24px;
+            margin: 8px 0;
+        }
+        #answerEditor pre {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+        }
+        
+        /* Link Popup */
+        .link-popup-overlay {
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(4px);
+        }
+        .link-popup {
+            animation: slideUp 0.3s ease-out;
+            max-width: 500px;
+            width: 95%;
+        }
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        /* Toast */
+        .toast-container {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 99999;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }
         .toast {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 9999;
-            animation: slideIn 0.3s ease-in-out;
+            padding: 12px 20px;
+            border-radius: 8px;
+            color: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            animation: slideInRight 0.4s ease-out;
+            max-width: 400px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-        @keyframes slideIn {
+        .toast.success { background: #059669; }
+        .toast.error { background: #dc2626; }
+        .toast.warning { background: #d97706; }
+        .toast.info { background: #2563eb; }
+        
+        @keyframes slideInRight {
             from { transform: translateX(100%); opacity: 0; }
             to { transform: translateX(0); opacity: 1; }
+        }
+        
+        /* Modal */
+        .modal-overlay {
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+        }
+        .modal-content {
+            animation: zoomIn 0.3s ease-out;
+        }
+        @keyframes zoomIn {
+            from { transform: scale(0.95); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .editor-toolbar button {
+                padding: 4px 8px;
+                font-size: 12px;
+            }
+            #answerEditor {
+                min-height: 150px;
+                font-size: 14px;
+            }
         }
     </style>
 </head>
 <body class="bg-gray-100">
 
 <!-- Top Navigation -->
-<nav class="bg-gradient-to-r from-indigo-800 to-purple-800 text-white shadow-lg">
-    <div class="px-6 py-4 flex justify-between items-center">
+<nav class="bg-gradient-to-r from-indigo-800 to-purple-800 text-white shadow-lg sticky top-0 z-40">
+    <div class="px-6 py-4 flex justify-between items-center flex-wrap gap-2">
         <div class="flex items-center space-x-3">
             <i class="fas fa-graduation-cap text-2xl"></i>
             <span class="font-bold text-xl">AnswerPoint Admin</span>
         </div>
         <div class="flex items-center space-x-4">
-            <span class="text-sm">Welcome, Admin</span>
-            <a href="/admin/logout" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg transition">
+            <span class="text-sm hidden sm:inline">Welcome, Admin</span>
+            <a href="/admin/logout" class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg transition text-sm">
                 <i class="fas fa-sign-out-alt mr-2"></i> Logout
             </a>
         </div>
     </div>
 </nav>
 
-<div class="flex">
+<div class="flex flex-col md:flex-row">
     <!-- Sidebar -->
-    <div class="w-64 bg-white shadow-lg h-screen sticky top-0">
-        <div class="p-4 space-y-2">
+    <div class="w-full md:w-64 bg-white shadow-lg md:h-screen md:sticky top-16 overflow-y-auto">
+        <div class="p-4 space-y-1">
             <button onclick="showSection('dashboard')" class="sidebar-btn w-full text-left px-4 py-3 rounded-lg hover:bg-indigo-50 transition flex items-center space-x-3">
                 <i class="fas fa-chart-line text-indigo-600"></i>
                 <span>Dashboard</span>
             </button>
-            <button onclick="showSection('create-pin')" class="sidebar-btn w-full text-left px-4 py-3 rounded-lg hover:bg-indigo-50 transition flex items-center space-x-3">
+            <button onclick="showSection('create-pin')" class="sidebar-btn w-full text-left px-4 py-3 rounded-lg hover:bg-indigo-50 transition flex items-center space-x-3 bg-indigo-50 text-indigo-700">
                 <i class="fas fa-plus-circle text-green-600"></i>
                 <span>Create PIN</span>
             </button>
@@ -85,26 +208,26 @@
     </div>
 
     <!-- Main Content -->
-    <div class="flex-1 p-6">
+    <div class="flex-1 p-4 md:p-6">
         <!-- Dashboard Section -->
-        <div id="dashboard-section" class="section-content">
+        <div id="dashboard-section" class="section-content hidden">
             <h1 class="text-3xl font-bold mb-6">Dashboard Overview</h1>
-            <div class="grid md:grid-cols-4 gap-6 mb-8">
-                <div class="bg-gradient-to-r from-indigo-500 to-indigo-600 rounded-xl p-6 text-white">
-                    <p class="text-sm">Total PINs</p>
-                    <p class="text-3xl font-bold">{{ total_pins }}</p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-8">
+                <div class="bg-gradient-to-r from-indigo-500 to-indigo-600 rounded-xl p-4 md:p-6 text-white">
+                    <p class="text-sm opacity-80">Total PINs</p>
+                    <p class="text-2xl md:text-3xl font-bold">{{ total_pins }}</p>
                 </div>
-                <div class="bg-gradient-to-r from-green-500 to-green-600 rounded-xl p-6 text-white">
-                    <p class="text-sm">Total Views</p>
-                    <p class="text-3xl font-bold">{{ total_views }}</p>
+                <div class="bg-gradient-to-r from-green-500 to-green-600 rounded-xl p-4 md:p-6 text-white">
+                    <p class="text-sm opacity-80">Total Views</p>
+                    <p class="text-2xl md:text-3xl font-bold">{{ total_views }}</p>
                 </div>
-                <div class="bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl p-6 text-white">
-                    <p class="text-sm">Subjects</p>
-                    <p class="text-3xl font-bold">{{ total_subjects }}</p>
+                <div class="bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl p-4 md:p-6 text-white">
+                    <p class="text-sm opacity-80">Subjects</p>
+                    <p class="text-2xl md:text-3xl font-bold">{{ total_subjects }}</p>
                 </div>
-                <div class="bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl p-6 text-white">
-                    <p class="text-sm">Images</p>
-                    <p class="text-3xl font-bold">{{ total_images }}</p>
+                <div class="bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl p-4 md:p-6 text-white">
+                    <p class="text-sm opacity-80">Images</p>
+                    <p class="text-2xl md:text-3xl font-bold">{{ total_images }}</p>
                 </div>
             </div>
 
@@ -131,7 +254,7 @@
                                 <td class="px-4 py-2 text-sm">{{ pin.created_at.strftime('%Y-%m-%d') }}</td>
                             </tr>
                             {% else %}
-                            <tr><td colspan="5" class="text-center py-4">No PINs yet. Create your first PIN!</td></tr>
+                            <tr><td colspan="5" class="text-center py-4 text-gray-500">No PINs yet. Create your first PIN!</td></tr>
                             {% endfor %}
                         </tbody>
                     </table>
@@ -140,20 +263,21 @@
         </div>
 
         <!-- Create PIN Section with Rich Text Editor -->
-        <div id="create-pin-section" class="section-content hidden">
+        <div id="create-pin-section" class="section-content">
             <h1 class="text-3xl font-bold mb-6">Create New PIN</h1>
-            <div class="bg-white rounded-xl shadow p-6">
+            <div class="bg-white rounded-xl shadow p-4 md:p-6">
                 <form id="createPinForm" enctype="multipart/form-data">
                     <div class="grid md:grid-cols-2 gap-6 mb-6">
                         <div>
-                            <label class="block font-bold mb-2">PIN Code (3 digits)</label>
+                            <label class="block font-bold mb-2">PIN Code <span class="text-red-500">*</span></label>
                             <input type="text" name="pin_code" maxlength="3" required
                                    class="w-full px-4 py-2 border rounded-lg focus:border-indigo-500 focus:outline-none text-center text-2xl font-mono"
                                    placeholder="123">
+                            <p class="text-sm text-gray-500 mt-1">3-digit unique code</p>
                         </div>
                         <div>
-                            <label class="block font-bold mb-2">Select Subject</label>
-                            <select name="subject_id" required class="w-full px-4 py-2 border rounded-lg">
+                            <label class="block font-bold mb-2">Select Subject <span class="text-red-500">*</span></label>
+                            <select name="subject_id" required class="w-full px-4 py-2 border rounded-lg focus:border-indigo-500 focus:outline-none">
                                 <option value="">-- Choose Subject --</option>
                                 {% for subject in all_subjects %}
                                 <option value="{{ subject.id }}">{{ subject.name }} ({{ subject.exam_type }})</option>
@@ -162,69 +286,104 @@
                         </div>
                     </div>
 
-                    <!-- Rich Text Answer Editor with Link feature -->
+                    <!-- Rich Text Answer Editor -->
                     <div class="mb-6">
-                        <label class="block font-bold mb-2">Answer Text</label>
+                        <label class="block font-bold mb-2">Answer Text <span class="text-red-500">*</span></label>
                         <div class="border rounded-lg overflow-hidden">
                             <!-- Toolbar -->
-                            <div class="bg-gray-50 border-b px-2 py-1 flex flex-wrap gap-1">
-                                <button type="button" onclick="formatText('bold')" class="toolbar-btn p-1.5 rounded hover:bg-gray-200" title="Bold"><b>B</b></button>
-                                <button type="button" onclick="formatText('italic')" class="toolbar-btn p-1.5 rounded hover:bg-gray-200" title="Italic"><i>I</i></button>
-                                <button type="button" onclick="formatText('underline')" class="toolbar-btn p-1.5 rounded hover:bg-gray-200" title="Underline"><u>U</u></button>
-                                <button type="button" onclick="formatText('strikeThrough')" class="toolbar-btn p-1.5 rounded hover:bg-gray-200" title="Strikethrough"><s>S</s></button>
-                                <span class="w-px h-6 bg-gray-300 self-center mx-1"></span>
-                                <button type="button" onclick="showLinkPopup()" class="toolbar-btn p-1.5 rounded hover:bg-gray-200 text-blue-600" title="Insert Link"><i class="fas fa-link"></i></button>
-                                <button type="button" onclick="removeLink()" class="toolbar-btn p-1.5 rounded hover:bg-gray-200 text-red-500" title="Remove Link"><i class="fas fa-unlink"></i></button>
-                            </div>
-                            <!-- Editable content area -->
-                            <div id="answerEditor" contenteditable="true" 
-                                 class="w-full px-4 py-3 min-h-[200px] focus:outline-none bg-white"
-                                 placeholder="Write the answer here..."></div>
-                        </div>
-                        <!-- Hidden input to store HTML content -->
-                        <input type="hidden" name="answer_text" id="answerTextHidden">
-                        <p class="text-sm text-gray-500 mt-1">Select text and use the link button to add hyperlinks</p>
-                    </div>
-
-                    <!-- Link popup (floating) -->
-                    <div id="linkPopup" class="hidden fixed inset-0 bg-black/30 flex items-center justify-center z-50">
-                        <div class="bg-white rounded-lg p-6 w-96 shadow-2xl link-popup">
-                            <h3 class="text-lg font-bold mb-4 flex items-center">
-                                <i class="fas fa-link text-indigo-600 mr-2"></i>
-                                Insert Hyperlink
-                            </h3>
-                            <div class="mb-4">
-                                <label class="block text-sm font-medium mb-1">URL</label>
-                                <input type="url" id="linkUrlInput" placeholder="https://example.com" 
-                                       class="w-full px-4 py-2 border rounded-lg focus:border-indigo-500 focus:outline-none">
-                            </div>
-                            <div class="mb-4">
-                                <label class="block text-sm font-medium mb-1">Text to display</label>
-                                <input type="text" id="linkTextInput" placeholder="Link text" 
-                                       class="w-full px-4 py-2 border rounded-lg focus:border-indigo-500 focus:outline-none">
-                            </div>
-                            <div class="flex items-center mb-4">
-                                <input type="checkbox" id="linkNewTab" class="mr-2">
-                                <label for="linkNewTab" class="text-sm">Open in new tab</label>
-                            </div>
-                            <div class="flex justify-end space-x-3">
-                                <button onclick="closeLinkPopup()" class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 transition">Cancel</button>
-                                <button onclick="applyLink()" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">
-                                    <i class="fas fa-check mr-2"></i> Apply
+                            <div class="editor-toolbar">
+                                <!-- Text Formatting -->
+                                <button type="button" onclick="formatText('bold')" title="Bold (Ctrl+B)">
+                                    <i class="fas fa-bold"></i>
+                                </button>
+                                <button type="button" onclick="formatText('italic')" title="Italic (Ctrl+I)">
+                                    <i class="fas fa-italic"></i>
+                                </button>
+                                <button type="button" onclick="formatText('underline')" title="Underline (Ctrl+U)">
+                                    <i class="fas fa-underline"></i>
+                                </button>
+                                <button type="button" onclick="formatText('strikeThrough')" title="Strikethrough">
+                                    <i class="fas fa-strikethrough"></i>
+                                </button>
+                                <span class="divider"></span>
+                                
+                                <!-- Lists -->
+                                <button type="button" onclick="formatText('insertUnorderedList')" title="Bullet List">
+                                    <i class="fas fa-list-ul"></i>
+                                </button>
+                                <button type="button" onclick="formatText('insertOrderedList')" title="Numbered List">
+                                    <i class="fas fa-list-ol"></i>
+                                </button>
+                                <span class="divider"></span>
+                                
+                                <!-- Alignment -->
+                                <button type="button" onclick="formatText('justifyLeft')" title="Align Left">
+                                    <i class="fas fa-align-left"></i>
+                                </button>
+                                <button type="button" onclick="formatText('justifyCenter')" title="Align Center">
+                                    <i class="fas fa-align-center"></i>
+                                </button>
+                                <button type="button" onclick="formatText('justifyRight')" title="Align Right">
+                                    <i class="fas fa-align-right"></i>
+                                </button>
+                                <span class="divider"></span>
+                                
+                                <!-- Links -->
+                                <button type="button" onclick="showLinkPopup()" class="text-blue-600" title="Insert Link (Ctrl+K)">
+                                    <i class="fas fa-link"></i>
+                                </button>
+                                <button type="button" onclick="removeLink()" class="text-red-500" title="Remove Link">
+                                    <i class="fas fa-unlink"></i>
+                                </button>
+                                <span class="divider"></span>
+                                
+                                <!-- Other -->
+                                <button type="button" onclick="formatText('insertHorizontalRule')" title="Horizontal Line">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                                <button type="button" onclick="insertCodeBlock()" title="Code Block">
+                                    <i class="fas fa-code"></i>
+                                </button>
+                                <button type="button" onclick="insertImage()" title="Insert Image URL">
+                                    <i class="fas fa-image"></i>
                                 </button>
                             </div>
+                            
+                            <!-- Editor Area -->
+                            <div id="answerEditor" contenteditable="true" 
+                                 class="w-full px-4 py-3 min-h-[200px] focus:outline-none bg-white"
+                                 placeholder="Write your answer here..."></div>
+                        </div>
+                        <input type="hidden" name="answer_text" id="answerTextHidden">
+                        <div class="flex justify-between mt-1">
+                            <span class="text-sm text-gray-500">
+                                <i class="fas fa-info-circle"></i> Select text for formatting
+                            </span>
+                            <span class="text-sm text-gray-500" id="wordCount">0 words</span>
                         </div>
                     </div>
 
+                    <!-- Image Upload -->
                     <div class="mb-6">
-                        <label class="block font-bold mb-2">Upload Images (Optional)</label>
-                        <input type="file" name="images" multiple accept="image/*" class="w-full">
-                        <p class="text-sm text-gray-500 mt-1">You can select multiple images</p>
+                        <label class="block font-bold mb-2">Upload Images</label>
+                        <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-indigo-500 transition">
+                            <input type="file" name="images" multiple accept="image/*" class="w-full" id="imageInput">
+                            <p class="text-sm text-gray-500 mt-2">
+                                <i class="fas fa-cloud-upload-alt text-indigo-500"></i>
+                                Click to select or drag & drop images
+                            </p>
+                            <div id="imagePreview" class="flex flex-wrap gap-2 mt-3"></div>
+                        </div>
                     </div>
 
-                    <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-lg transition">
-                        <i class="fas fa-save mr-2"></i> Create PIN
-                    </button>
+                    <div class="flex gap-3">
+                        <button type="submit" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-lg transition flex items-center gap-2">
+                            <i class="fas fa-save"></i> Create PIN
+                        </button>
+                        <button type="reset" class="bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-2 rounded-lg transition">
+                            <i class="fas fa-undo"></i> Reset
+                        </button>
+                    </div>
                 </form>
                 <div id="createMessage" class="mt-4 hidden"></div>
             </div>
@@ -248,7 +407,7 @@
                         </thead>
                         <tbody>
                             {% for pin in recent_pins %}
-                            <tr class="border-b">
+                            <tr class="border-b hover:bg-gray-50">
                                 <td class="px-4 py-2 font-mono font-bold text-indigo-600">{{ pin.pin_code }}</td>
                                 <td class="px-4 py-2">{{ pin.subject.name }}</td>
                                 <td class="px-4 py-2">{{ pin.subject.exam_type }}</td>
@@ -264,7 +423,7 @@
                                 </td>
                             </tr>
                             {% else %}
-                            <tr><td colspan="6" class="text-center py-4">No PINs created yet</td></tr>
+                            <tr><td colspan="6" class="text-center py-4 text-gray-500">No PINs created yet</td></tr>
                             {% endfor %}
                         </tbody>
                     </table>
@@ -372,28 +531,84 @@
     </div>
 </div>
 
+<!-- Enhanced Link Popup -->
+<div id="linkPopup" class="hidden fixed inset-0 link-popup-overlay flex items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-xl p-6 shadow-2xl link-popup w-full max-w-lg">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-xl font-bold flex items-center gap-2">
+                <i class="fas fa-link text-indigo-600"></i> Insert Hyperlink
+            </h3>
+            <button onclick="closeLinkPopup()" class="text-gray-400 hover:text-gray-600">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="space-y-4">
+            <div>
+                <label class="block text-sm font-medium mb-1">URL <span class="text-red-500">*</span></label>
+                <input type="url" id="linkUrlInput" placeholder="https://example.com" 
+                       class="w-full px-4 py-2 border rounded-lg focus:border-indigo-500 focus:outline-none">
+                <p class="text-xs text-gray-500 mt-1">Must start with http:// or https://</p>
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium mb-1">Text to display <span class="text-red-500">*</span></label>
+                <input type="text" id="linkTextInput" placeholder="Link text" 
+                       class="w-full px-4 py-2 border rounded-lg focus:border-indigo-500 focus:outline-none">
+            </div>
+            
+            <div class="flex items-center gap-2">
+                <input type="checkbox" id="linkNewTab" class="w-4 h-4 text-indigo-600">
+                <label for="linkNewTab" class="text-sm">Open link in new tab</label>
+            </div>
+            
+            <div class="flex items-center gap-2">
+                <input type="checkbox" id="linkNofollow" class="w-4 h-4 text-indigo-600">
+                <label for="linkNofollow" class="text-sm">Add rel="nofollow" (for SEO)</label>
+            </div>
+        </div>
+        
+        <div class="flex justify-end gap-3 mt-6">
+            <button onclick="closeLinkPopup()" class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 transition">
+                Cancel
+            </button>
+            <button onclick="applyLink()" class="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition flex items-center gap-2">
+                <i class="fas fa-check"></i> Apply
+            </button>
+        </div>
+    </div>
+</div>
+
 <!-- Edit Modal -->
-<div id="editModal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
-    <div class="bg-white rounded-xl p-6 max-w-2xl w-full">
-        <h2 class="text-2xl font-bold mb-4">Edit PIN Answer</h2>
+<div id="editModal" class="hidden fixed inset-0 modal-overlay flex items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-xl p-6 max-w-2xl w-full modal-content">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-2xl font-bold">Edit PIN Answer</h2>
+            <button onclick="closeEditModal()" class="text-gray-400 hover:text-gray-600">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
         <form id="editPinForm">
             <input type="hidden" id="editPinId">
-            <textarea id="editAnswerText" rows="10" class="w-full px-4 py-2 border rounded-lg mb-4"></textarea>
-            <div class="flex justify-end space-x-3">
-                <button type="button" onclick="closeEditModal()" class="px-4 py-2 bg-gray-300 rounded-lg">Cancel</button>
-                <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-lg">Save</button>
+            <textarea id="editAnswerText" rows="10" class="w-full px-4 py-2 border rounded-lg mb-4 focus:border-indigo-500 focus:outline-none"></textarea>
+            <div class="flex justify-end gap-3">
+                <button type="button" onclick="closeEditModal()" class="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 transition">Cancel</button>
+                <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition">
+                    <i class="fas fa-save mr-2"></i> Save
+                </button>
             </div>
         </form>
     </div>
 </div>
 
-<!-- Toast Notification -->
-<div id="toast" class="toast hidden bg-gray-800 text-white px-6 py-3 rounded-lg shadow-lg">
-    <span id="toastMessage"></span>
-</div>
+<!-- Toast Container -->
+<div id="toastContainer" class="toast-container"></div>
 
 <script>
-// ---------- Rich Text Editor Functions ----------
+// ============================================
+// RICH TEXT EDITOR - FULL FEATURED
+// ============================================
+
 let selectedRange = null;
 let selectedText = '';
 
@@ -401,7 +616,31 @@ function formatText(command) {
     document.execCommand(command, false, null);
     document.getElementById('answerEditor').focus();
     syncAnswerText();
+    updateWordCount();
 }
+
+function insertCodeBlock() {
+    const selection = window.getSelection();
+    if (!selection.isCollapsed) {
+        const text = selection.toString();
+        document.execCommand('insertHTML', false, `<pre><code>${text}</code></pre>`);
+    } else {
+        document.execCommand('insertHTML', false, '<pre><code>Your code here</code></pre>');
+    }
+    syncAnswerText();
+}
+
+function insertImage() {
+    const url = prompt('Enter image URL:');
+    if (url && url.trim()) {
+        document.execCommand('insertHTML', false, `<img src="${url}" alt="Image" style="max-width:100%;border-radius:8px;margin:8px 0;">`);
+        syncAnswerText();
+    }
+}
+
+// ============================================
+// LINK MANAGEMENT
+// ============================================
 
 function showLinkPopup() {
     const editor = document.getElementById('answerEditor');
@@ -415,16 +654,18 @@ function showLinkPopup() {
     selectedRange = selection.getRangeAt(0).cloneRange();
     selectedText = selection.toString();
     
-    // Check if already a link
+    // Check if selected text is inside a link
     const anchor = getSelectedAnchor();
     if (anchor) {
         document.getElementById('linkUrlInput').value = anchor.href || '';
         document.getElementById('linkTextInput').value = anchor.textContent || selectedText;
         document.getElementById('linkNewTab').checked = anchor.target === '_blank';
+        document.getElementById('linkNofollow').checked = anchor.rel && anchor.rel.includes('nofollow');
     } else {
         document.getElementById('linkUrlInput').value = '';
         document.getElementById('linkTextInput').value = selectedText;
         document.getElementById('linkNewTab').checked = false;
+        document.getElementById('linkNofollow').checked = false;
     }
     
     document.getElementById('linkPopup').classList.remove('hidden');
@@ -451,6 +692,7 @@ function applyLink() {
     const url = document.getElementById('linkUrlInput').value.trim();
     const text = document.getElementById('linkTextInput').value.trim();
     const newTab = document.getElementById('linkNewTab').checked;
+    const nofollow = document.getElementById('linkNofollow').checked;
     
     if (!url) {
         showToast('Please enter a URL', 'warning');
@@ -470,29 +712,30 @@ function applyLink() {
     const editor = document.getElementById('answerEditor');
     editor.focus();
     
-    // If we have a range, use it
     if (selectedRange) {
         const selection = window.getSelection();
         selection.removeAllRanges();
         selection.addRange(selectedRange);
     }
     
-    // Create the link
     document.execCommand('createLink', false, url);
     
-    // Adjust link properties
+    // Customize the link
     const anchors = editor.querySelectorAll('a');
     const lastAnchor = anchors[anchors.length - 1];
     if (lastAnchor) {
         lastAnchor.textContent = text;
         if (newTab) {
             lastAnchor.target = '_blank';
-            lastAnchor.rel = 'noopener noreferrer';
+            lastAnchor.rel = nofollow ? 'noopener noreferrer nofollow' : 'noopener noreferrer';
+        } else if (nofollow) {
+            lastAnchor.rel = 'nofollow';
         }
     }
     
     closeLinkPopup();
     syncAnswerText();
+    updateWordCount();
     showToast('Link added successfully!', 'success');
 }
 
@@ -501,44 +744,90 @@ function removeLink() {
     if (!selection.isCollapsed) {
         document.execCommand('unlink', false, null);
         syncAnswerText();
+        updateWordCount();
         showToast('Link removed', 'success');
     } else {
         showToast('Select the linked text to remove the link', 'warning');
     }
 }
 
+// ============================================
+// WORD COUNT
+// ============================================
+
+function updateWordCount() {
+    const editor = document.getElementById('answerEditor');
+    const text = editor.textContent || '';
+    const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+    document.getElementById('wordCount').textContent = `${words} words`;
+}
+
+// ============================================
+// SYNC FUNCTIONS
+// ============================================
+
 function syncAnswerText() {
     const editor = document.getElementById('answerEditor');
     document.getElementById('answerTextHidden').value = editor.innerHTML;
 }
 
-// ---------- Toast Notification ----------
+// ============================================
+// IMAGE PREVIEW
+// ============================================
+
+document.getElementById('imageInput')?.addEventListener('change', function(e) {
+    const preview = document.getElementById('imagePreview');
+    preview.innerHTML = '';
+    const files = Array.from(this.files);
+    files.forEach(file => {
+        const reader = new FileReader();
+        reader.onload = function(ev) {
+            const img = document.createElement('img');
+            img.src = ev.target.result;
+            img.className = 'w-16 h-16 object-cover rounded border';
+            preview.appendChild(img);
+        };
+        reader.readAsDataURL(file);
+    });
+});
+
+// ============================================
+// TOAST SYSTEM
+// ============================================
+
 function showToast(message, type = 'info') {
-    const toast = document.getElementById('toast');
-    const toastMessage = document.getElementById('toastMessage');
-    toastMessage.textContent = message;
+    const container = document.getElementById('toastContainer');
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
     
-    const colors = {
-        success: 'bg-green-600',
-        warning: 'bg-yellow-600',
-        error: 'bg-red-600',
-        info: 'bg-gray-800'
+    const icons = {
+        success: 'fa-check-circle',
+        error: 'fa-exclamation-circle',
+        warning: 'fa-exclamation-triangle',
+        info: 'fa-info-circle'
     };
     
-    toast.className = `toast ${colors[type] || colors.info} text-white px-6 py-3 rounded-lg shadow-lg`;
-    toast.classList.remove('hidden');
+    toast.innerHTML = `
+        <i class="fas ${icons[type] || icons.info}"></i>
+        <span>${message}</span>
+    `;
+    
+    container.appendChild(toast);
     
     setTimeout(() => {
-        toast.classList.add('hidden');
+        toast.style.animation = 'slideInRight 0.4s ease-out reverse';
+        setTimeout(() => toast.remove(), 400);
     }, 3000);
 }
 
-// ---------- Form Submission ----------
+// ============================================
+// FORM SUBMISSIONS
+// ============================================
+
 document.getElementById('createPinForm')?.addEventListener('submit', function(e) {
     e.preventDefault();
     syncAnswerText();
     
-    // Validate that answer is not empty
     const answerContent = document.getElementById('answerTextHidden').value.trim();
     if (!answerContent) {
         showToast('Please enter an answer', 'warning');
@@ -564,18 +853,40 @@ document.getElementById('createPinForm')?.addEventListener('submit', function(e)
                 showToast(data.error || 'Failed to create PIN', 'error');
             }
         })
-        .catch(error => {
-            showToast('Network error. Please try again.', 'error');
-        });
+        .catch(() => showToast('Network error. Please try again.', 'error'));
 });
 
-// ---------- Navigation ----------
+// ============================================
+// NAVIGATION
+// ============================================
+
 function showSection(section) {
     document.querySelectorAll('.section-content').forEach(el => el.classList.add('hidden'));
-    document.getElementById(`${section}-section`).classList.remove('hidden');
+    const target = document.getElementById(`${section}-section`);
+    if (target) target.classList.remove('hidden');
+    
+    // Update sidebar active state
+    document.querySelectorAll('.sidebar-btn').forEach(btn => {
+        btn.classList.remove('bg-indigo-50', 'text-indigo-700');
+    });
+    const btns = document.querySelectorAll('.sidebar-btn');
+    const sectionMap = {
+        'dashboard': 0,
+        'create-pin': 1,
+        'manage-pins': 2,
+        'edit-content': 3,
+        'timetable': 4
+    };
+    const idx = sectionMap[section];
+    if (idx !== undefined && btns[idx]) {
+        btns[idx].classList.add('bg-indigo-50', 'text-indigo-700');
+    }
 }
 
-// ---------- Load Home Content ----------
+// ============================================
+// LOAD HOME CONTENT
+// ============================================
+
 function loadHomeContent() {
     fetch('/admin/get_home_content')
         .then(res => res.json())
@@ -590,7 +901,10 @@ function loadHomeContent() {
         });
 }
 
-// ---------- Edit Content ----------
+// ============================================
+// EDIT CONTENT
+// ============================================
+
 document.getElementById('editContentForm')?.addEventListener('submit', function(e) {
     e.preventDefault();
     const formData = new FormData(this);
@@ -606,7 +920,10 @@ document.getElementById('editContentForm')?.addEventListener('submit', function(
         });
 });
 
-// ---------- Edit PIN Modal ----------
+// ============================================
+// EDIT PIN MODAL
+// ============================================
+
 function editPin(id) {
     currentEditId = id;
     fetch(`/admin/get_pin/${id}`)
@@ -635,7 +952,10 @@ document.getElementById('editPinForm')?.addEventListener('submit', function(e) {
     });
 });
 
-// ---------- Delete PIN ----------
+// ============================================
+// DELETE FUNCTIONS
+// ============================================
+
 function deletePin(id, pin) {
     if (confirm(`Delete PIN ${pin}?`)) {
         fetch(`/admin/delete_pin/${id}`, { method: 'POST' })
@@ -646,7 +966,6 @@ function deletePin(id, pin) {
     }
 }
 
-// ---------- Timetable ----------
 function deleteTimetable(id) {
     if (confirm('Delete this timetable entry?')) {
         fetch(`/admin/delete_timetable/${id}`, { method: 'POST' })
@@ -667,36 +986,40 @@ document.getElementById('addTimetableForm')?.addEventListener('submit', function
         });
 });
 
-// ---------- Keyboard Shortcuts ----------
+// ============================================
+// KEYBOARD SHORTCUTS
+// ============================================
+
 document.addEventListener('keydown', function(e) {
+    // Ctrl+B (Bold), Ctrl+I (Italic), Ctrl+U (Underline) - browser default
     // Ctrl+K for link
     if (e.ctrlKey && e.key === 'k') {
         e.preventDefault();
         showLinkPopup();
     }
-    // Escape to close popup
+    // Escape to close popups
     if (e.key === 'Escape') {
         closeLinkPopup();
+        closeEditModal();
     }
 });
 
-// ---------- Init ----------
+// ============================================
+// INITIALIZATION
+// ============================================
+
 document.addEventListener('DOMContentLoaded', function() {
     loadHomeContent();
-    showSection('dashboard');
+    showSection('create-pin');
     
-    // Initialize editor
     const editor = document.getElementById('answerEditor');
     if (editor) {
-        editor.addEventListener('input', syncAnswerText);
-        editor.addEventListener('blur', syncAnswerText);
-        
-        // Placeholder handling
-        editor.addEventListener('focus', function() {
-            if (this.textContent.trim() === '') {
-                this.textContent = '';
-            }
+        editor.addEventListener('input', function() {
+            syncAnswerText();
+            updateWordCount();
         });
+        editor.addEventListener('blur', syncAnswerText);
+        updateWordCount();
     }
     
     // Close link popup on outside click
@@ -704,21 +1027,29 @@ document.addEventListener('DOMContentLoaded', function() {
         if (e.target === this) closeLinkPopup();
     });
     
-    // Enter key in link URL field to apply
+    // Enter key in link fields to apply
     document.getElementById('linkUrlInput').addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            applyLink();
-        }
+        if (e.key === 'Enter') { e.preventDefault(); applyLink(); }
     });
-    
-    // Enter key in link text field to apply
     document.getElementById('linkTextInput').addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            applyLink();
-        }
+        if (e.key === 'Enter') { e.preventDefault(); applyLink(); }
     });
+});
+
+// ============================================
+// PREVENT FORM RESET FROM CLEARING EDITOR
+// ============================================
+
+document.querySelector('button[type="reset"]')?.addEventListener('click', function(e) {
+    e.preventDefault();
+    if (confirm('Reset all fields?')) {
+        document.getElementById('createPinForm').reset();
+        document.getElementById('answerEditor').innerHTML = '';
+        document.getElementById('answerTextHidden').value = '';
+        document.getElementById('imagePreview').innerHTML = '';
+        updateWordCount();
+        showToast('Form reset', 'info');
+    }
 });
 </script>
 </body>
